@@ -9,11 +9,11 @@ import {
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Login from "./components/authentication/Login";
-import Profile from "./components/Profile/index";
+import Profile from "./components/profile/index";
 import { AppContext } from "./lib/contextLib";
 import { getCookieValue } from "./helpers/cookies";
 import { COOKIE_JWT_TOKEN_NAME } from "./constants";
-
+import { Index as Catalog } from "./components/catalog/index";
 export default function App() {
   const [isLoading, setLoading] = useState(true);
   const [isAuthenticated, setAuthenticated] = useState(false);
@@ -63,6 +63,7 @@ export default function App() {
             <Route exact path="/profile" element={<PrivateRoute />}>
               <Route exact path="/profile" element={<Profile />} />
             </Route>
+            <Route exact path="/catalog" element={<Catalog />} />
           </Routes>
         </div>
       </BrowserRouter>

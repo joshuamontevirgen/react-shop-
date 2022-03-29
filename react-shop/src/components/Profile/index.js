@@ -10,18 +10,20 @@ export default function Profile() {
 
   var token = getCookieValue(COOKIE_JWT_TOKEN_NAME);
 
-  useEffect(async () => {
-    var user = await fetch(API_URL + "/api/profile", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    }).then((data) => data.json());
-
-    setEmail(user.email);
-    setAddress(user.address);
-    setLoading(false);
+  useEffect(() => {
+    async function fetchData() {
+      var user = await fetch(API_URL + "/api/profile", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      }).then((data) => data.json());
+      setEmail(user.email);
+      setAddress(user.address);
+      setLoading(false);
+    }
+    fetchData();
   });
   return (
     <div>
