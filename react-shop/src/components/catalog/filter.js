@@ -1,11 +1,25 @@
-import React, { Component } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
+import { API_URL } from "../../constants";
 
-export const Filter = () => {
+export const Filter = ({ onChange }) => {
   const [isLoading, setLoading] = useState(true);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    setLoading(false);
-  });
+    async function fetchData() {
+      const newItems = await fetch(API_URL + "/api/itemcategory", {
+        method: "GET",
+      }).then((data) => data.json());
+      setCategories(newItems);
+      setLoading(false);
+    }
+    fetchData();
+  }, []);
+
+  return (
+    !isLoading && (
+      <Select onChange={onChange} options={categories} isMulti={true}></Select>
+    )
+  );
 };

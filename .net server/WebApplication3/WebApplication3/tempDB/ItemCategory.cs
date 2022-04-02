@@ -1,8 +1,8 @@
 ﻿namespace WebApplication3.tempDB
 {
-    public enum ItemCategory
+    public class ItemCategory
     {
-        Food,
-        Beverage
+        public string Value { get; set; }
+        public string Label { get; set; }
     }
 }
