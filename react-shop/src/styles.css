@@ -1,0 +1,21 @@
+/*https://github.com/reactjs/react-transition-group/issues/157*/
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.item-exit-active {
+  opacity: 0;
+  transition: opacity 250ms linear;
+}
+
+.item-enter-active {
+  animation-name: fadeIn;
+  animation-duration: 250ms;
+  animation-timing-function: linear;
+}
