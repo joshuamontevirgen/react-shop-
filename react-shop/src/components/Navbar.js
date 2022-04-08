@@ -34,11 +34,6 @@ const Navbar = () => {
           )}
 
           <li className="nav-item">
-            <Link className="nav-item nav-link" to="/cart">
-              My cart
-            </Link>
-          </li>
-          <li className="nav-item">
             {isAuthenticated ? (
               <Link
                 className="nav-item nav-link"

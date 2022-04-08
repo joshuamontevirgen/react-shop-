@@ -64,7 +64,7 @@ export default function App() {
             <Navbar />
             <div id="main-container">
               <Routes>
-                <Route exact path="/" element={<Home />} />
+                <Route exact path="/" element={<Catalog />} />
                 <Route exact path="/login" element={<Login />} />
                 <Route exact path="/profile" element={<PrivateRoute />}>
                   <Route exact path="/profile" element={<Profile />} />
