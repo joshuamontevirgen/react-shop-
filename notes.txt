@@ -10,3 +10,6 @@ https://changelog.com/posts/when-and-when-not-to-reach-for-redux
 https://devtrium.com/posts/async-functions-useeffect
 https://dmitripavlutin.com/react-useeffect-infinite-loop/
 https://stackoverflow.com/questions/54069253/usestate-set-method-not-reflecting-change-immediately
+
+https://react-redux.js.org/tutorials/quick-start
+$r.props.store.getState()

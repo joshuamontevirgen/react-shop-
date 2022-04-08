@@ -18,7 +18,7 @@ namespace WebApplication3.tempDB
             new Item {Id=10, Name = "beverage5", Desc = "desc", Price = 1, ImageUrl = "https://localhost:44329/img/itm.jpg", Category = "Beverage" },
             new Item {Id=11, Name = "snacks1", Desc = "desc", Price = 1, ImageUrl = "https://localhost:44329/img/itm.jpg", Category = "Snacks" },
             new Item {Id=12, Name = "snacks2", Desc = "desc", Price = 1, ImageUrl = "https://localhost:44329/img/itm.jpg", Category = "Snacks" },
-            new Item {Id=13, Name = "snacks3", Desc = "desc", Price = 1, ImageUrl = "https://localhost:44329/img/itm.jpg", Category = "Snacks" }
+            new Item {Id=13, Name = "snacks3", Desc = "desc", Price = 1, ImageUrl = "https://localhost:44329/img/itm.jpg", Category = "Snacks" },
         };
     }
 }

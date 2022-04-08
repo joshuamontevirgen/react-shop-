@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Item as CatalogItem } from "./item";
 import { API_URL } from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,7 +19,7 @@ export const Index = () => {
   const [filters, setFilters] = useState([]);
   const [items, setItems] = useState([]);
   const [isGrid, setGrid] = useState(true);
-  const nodeRef = useRef(null);
+  //const nodeRef = useRef(null);
 
   //get items
   useEffect(() => {

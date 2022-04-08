@@ -14,6 +14,10 @@ import { AppContext } from "./lib/contextLib";
 import { getCookieValue } from "./helpers/cookies";
 import { COOKIE_JWT_TOKEN_NAME } from "./constants";
 import { Index as Catalog } from "./components/catalog/index";
+
+import store from "./store";
+import { Provider } from "react-redux";
+
 export default function App() {
   const [isLoading, setLoading] = useState(true);
   const [isAuthenticated, setAuthenticated] = useState(false);
@@ -44,30 +48,34 @@ export default function App() {
   });
 
   return (
-    <AppContext.Provider
-      value={{
-        isAuthenticated,
-        setAuthenticated,
-        username,
-        setUsername,
-        jwtToken,
-        setJwtToken,
-      }}
-    >
-      <BrowserRouter>
-        <div className="App">
-          <Navbar />
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/profile" element={<PrivateRoute />}>
-              <Route exact path="/profile" element={<Profile />} />
-            </Route>
-            <Route exact path="/catalog" element={<Catalog />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </AppContext.Provider>
+    <Provider store={store}>
+      <AppContext.Provider
+        value={{
+          isAuthenticated,
+          setAuthenticated,
+          username,
+          setUsername,
+          jwtToken,
+          setJwtToken,
+        }}
+      >
+        <BrowserRouter>
+          <div className="App">
+            <Navbar />
+            <div id="main-container">
+              <Routes>
+                <Route exact path="/" element={<Home />} />
+                <Route exact path="/login" element={<Login />} />
+                <Route exact path="/profile" element={<PrivateRoute />}>
+                  <Route exact path="/profile" element={<Profile />} />
+                </Route>
+                <Route exact path="/catalog" element={<Catalog />} />
+              </Routes>
+            </div>
+          </div>
+        </BrowserRouter>
+      </AppContext.Provider>
+    </Provider>
   );
 }
 

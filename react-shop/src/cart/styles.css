@@ -1,0 +1,66 @@
+.circle {
+    width: 19px;
+    height: 19px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1px;
+    font-size:12px;
+}
+
+.hidden {
+    display: none;
+}
+
+#cart-popup{
+    position : fixed;
+    z-index: 9999;
+    background-color: lightgray;
+    overflow-y: auto; 
+}
+
+#cart-icon-wrapper {
+    position: relative;
+    padding: 2px;
+
+}
+    #cart-icon-wrapper span{
+        position: absolute;
+        top: -2px;
+        right: -2px; 
+    }
+    #cart-icon-wrapper:hover {
+        cursor: pointer;
+        background-color: lightgray;
+    }
+    
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome and Opera */
+}
+
+.fadeOut{
+    opacity:0;
+    width:0;
+    height:0;
+    transition: 0.5s;
+
+}
+.fadeIn{
+    opacity:1;
+    max-height: 30%;
+    transition: 0.1s;
+
+}
+
+ul {
+    list-style-type: none; /* Remove bullets */
+  }
+  

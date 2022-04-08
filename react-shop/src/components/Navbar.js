@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAppContext } from "../lib/contextLib";
 import { handleLogout as hl } from "./authentication/Logout";
+import { Cart } from "../cart/Cart";
 const Navbar = () => {
   const { isAuthenticated, setAuthenticated, setUsername, setJwtToken } =
     useAppContext();
@@ -11,12 +12,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <a className="navbar-brand" href="#">
         shop
       </a>
 
-      <div className="collapse navbar-collapse">
+      <div className="">
         <ul className="navbar-nav ">
           <li className="nav-item ">
             <Link className="nav-item nav-link" to="/">
@@ -51,6 +52,10 @@ const Navbar = () => {
                 Login
               </Link>
             )}
+          </li>
+
+          <li>
+            <Cart />
           </li>
         </ul>
       </div>
