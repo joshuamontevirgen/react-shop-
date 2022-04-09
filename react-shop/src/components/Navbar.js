@@ -17,43 +17,44 @@ const Navbar = () => {
         shop
       </a>
 
-      <div className="">
-        <ul className="navbar-nav ">
+      <ul className="navbar-nav ">
+        <li className="nav-item ">
+          <Link className="nav-item nav-link" to="/">
+            Home <span className="sr-only">(current)</span>
+          </Link>
+        </li>
+
+        {isAuthenticated && (
           <li className="nav-item ">
-            <Link className="nav-item nav-link" to="/">
-              Home <span className="sr-only">(current)</span>
+            <Link className="nav-item nav-link" to="/profile">
+              Profile <span className="sr-only">(current)</span>
             </Link>
           </li>
+        )}
 
-          {isAuthenticated && (
-            <li className="nav-item ">
-              <Link className="nav-item nav-link" to="/profile">
-                Profile <span className="sr-only">(current)</span>
-              </Link>
-            </li>
+        <li className="nav-item">
+          {isAuthenticated ? (
+            <Link
+              className="nav-item nav-link"
+              onClick={handleLogout}
+              to="/login"
+            >
+              Logout
+            </Link>
+          ) : (
+            <Link className="nav-item nav-link" to="/login">
+              Login
+            </Link>
           )}
+        </li>
+      </ul>
 
-          <li className="nav-item">
-            {isAuthenticated ? (
-              <Link
-                className="nav-item nav-link"
-                onClick={handleLogout}
-                to="/login"
-              >
-                Logout
-              </Link>
-            ) : (
-              <Link className="nav-item nav-link" to="/login">
-                Login
-              </Link>
-            )}
-          </li>
-
-          <li>
-            <Cart />
-          </li>
-        </ul>
-      </div>
+      <ul className="navbar-nav  ml-auto ">
+        <li>
+          {" "}
+          <Cart className="" />
+        </li>
+      </ul>
     </nav>
   );
 };

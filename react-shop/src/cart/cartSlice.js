@@ -2,27 +2,59 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getIndex } from "../helpers/array";
 export const cartSlice = createSlice({
   name: "cart",
-  initialState: [],
+  initialState: {
+    items: [],
+    show: false,
+    hover: false,
+    fadeOutClass: "fadeOut",
+  },
   reducers: {
-    addItem: (state, action) => {
-      var item = state.find((i) => i.id === action.payload.id);
+    addCartItem: (state, action) => {
+      var item = state.items.find((i) => i.id === action.payload.id);
       if (!item) {
-        state.push({ ...action.payload, quantity: 1 });
+        state.items.push({
+          ...action.payload,
+          quantity: 1,
+          subTotal: action.payload.price,
+        });
       } else {
         item.quantity++;
+        item.subTotal = item.quantity * item.price;
       }
     },
-    subItem: (state, action) => {
-      var item = state.find((i) => i.id === action.payload.id);
-
+    subCartItem: (state, action) => {
+      var item = state.items.find((i) => i.id === action.payload.id);
       item.quantity--;
+      item.subTotal = item.quantity * item.price;
       if (item.quantity == 0) {
-        state.splice(getIndex(state, action.payload.id), 1);
+        state.items.splice(getIndex(state.items, action.payload.id));
       }
     },
-    removeItem: (state, action) => {},
+    removeCartItem: (state, action) => {
+      var item = state.items.find((i) => i.id === action.payload.id);
+      state.items.splice(getIndex(state.items, action.payload.id));
+    },
+    toggleShowFast: (state, action) => {
+      state.fadeOutClass = "fadeOut";
+      state.show = action.payload;
+    },
+    toggleShowSlow: (state, action) => {
+      state.fadeOutClass = "fadeOutSlow";
+      state.show = action.payload;
+    },
+    toggleHover: (state, action) => {
+      state.fadeOutClass = "fadeOut";
+      state.hover = action.payload;
+    },
   },
 });
 
-export const { addItem, removeItem, subItem } = cartSlice.actions;
+export const {
+  addCartItem,
+  removeCartItem,
+  subCartItem,
+  toggleShowFast,
+  toggleShowSlow,
+  toggleHover,
+} = cartSlice.actions;
 export default cartSlice.reducer;

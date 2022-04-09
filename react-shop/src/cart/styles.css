@@ -15,10 +15,66 @@
 
 #cart-popup{
     position : fixed;
+    right: 10px;
     z-index: 9999;
-    background-color: lightgray;
-    overflow-y: auto; 
+    background-color: white;
+    overflow: hidden;
+    min-height: 400px;
+    max-height: 400px;
+    min-width: 300px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
+    #cart-popup img{
+        height: 50px;
+        width: 50px;
+    }
+    #cart-popup .total{      
+        padding:1em;
+        margin:5px;
+        width: 100%;
+        height: 10px;
+        background-color: white;
+    }
+    #cart-popup .btn{      
+       margin:0px;
+    }
+
+    #cart-popup .total .right{      
+        margin-left: auto;
+    }
+
+    #cart-popup .container{
+        min-height: 320px;
+        max-height: 320px;
+        overflow-y: auto; 
+    }
+
+.cart-item{
+    padding:0.5em;    
+}
+    .cart-item span,
+    .cart-item img,
+    .cart-item div{
+        padding:0.5em;
+    }
+    
+    /*https://stackoverflow.com/questions/23794713/how-can-i-have-two-fixed-width-columns-with-one-flexible-column-in-the-center */
+    .cart-item .quantity{
+        width: 30px;
+        flex: 0 0 30px;
+    }
+
+    .cart-item .cart-item-name-wrapper{
+        flex: 1;
+    }
+        .cart-item .cart-item-name-wrapper span{
+            padding:0px !important;    
+        }
+
+    .cart-item .item-subtotal{
+        margin-left: auto;
+    }
+   
 
 #cart-icon-wrapper {
     position: relative;
@@ -46,21 +102,28 @@
                                     supported by Chrome and Opera */
 }
 
-.fadeOut{
+
+.fadeOutSlow{
+    visibility: hidden;
     opacity:0;
-    width:0;
-    height:0;
-    transition: 0.5s;
+    transition:  visibility 0s 1.5s, opacity 1.5s linear;
+}
+
+.fadeOut{
+    visibility: hidden;
+    opacity:0;
+    transition: visibility 0s 0.2s, opacity 0.2s linear;
 
 }
 .fadeIn{
-    opacity:1;
-    max-height: 30%;
-    transition: 0.1s;
-
+    opacity:1;  
+    transition: 0.2s linear;
 }
 
-ul {
+
+
+#cart-popup ul {
     list-style-type: none; /* Remove bullets */
+    padding-left: 0;
   }
   
