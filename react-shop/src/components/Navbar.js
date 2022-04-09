@@ -51,7 +51,6 @@ const Navbar = () => {
 
       <ul className="navbar-nav  ml-auto ">
         <li>
-          {" "}
           <Cart className="" />
         </li>
       </ul>
