@@ -1,10 +1,16 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useAppContext } from "../../lib/contextLib";
 import { useNavigate } from "react-router-dom";
 import { setCookie } from "../../helpers/cookies";
 import { COOKIE_JWT_TOKEN_NAME, API_URL } from "../../constants";
+import {
+  setAuthenticated,
+  setUsername,
+  setJwtToken,
+} from "./authenticationSlice";
 
 //todo -  refresh, access token
 //https://stackoverflow.com/questions/27067251/where-to-store-jwt-in-browser-how-to-protect-against-csrf?rq=1
@@ -12,9 +18,9 @@ import { COOKIE_JWT_TOKEN_NAME, API_URL } from "../../constants";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { setAuthenticated, setUsername, setJwtToken } = useAppContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   function validateForm() {
     return email.length > 0 && password.length > 0;
@@ -23,13 +29,13 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     const user = await loginUser({ Email: email, Password: password });
-    if (user.token !== null) {
-      setAuthenticated(true);
-      setUsername(email);
-      setJwtToken(user.token);
-      navigate("/dashboard");
+    if (user.token) {
+      dispatch(setAuthenticated(true));
+      dispatch(setUsername(email));
+      dispatch(setJwtToken(user.token));
       localStorage.setItem("email", email);
       document.cookie = setCookie(COOKIE_JWT_TOKEN_NAME, user.token, 5);
+      navigate("/");
     } else {
       alert("wrong username/password");
     }

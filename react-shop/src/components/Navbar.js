@@ -1,14 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useAppContext } from "../lib/contextLib";
 import { handleLogout as hl } from "./authentication/Logout";
-import { Cart } from "../cart/Cart";
+import { Cart } from "../components/cart/Cart";
+import {
+  setAuthenticated,
+  setUsername,
+  setJwtToken,
+} from "./authentication/authenticationSlice";
 const Navbar = () => {
-  const { isAuthenticated, setAuthenticated, setUsername, setJwtToken } =
-    useAppContext();
-
+  // const { isAuthenticated, setAuthenticated, setUsername, setJwtToken } = useAppContext();
+  const isAuthenticated = useSelector((state) => {
+    return state.authentication.authenticated;
+  });
+  const dispatch = useDispatch();
   const handleLogout = () => {
-    hl(setAuthenticated, setUsername, setJwtToken);
+    hl(dispatch, setAuthenticated, setUsername, setJwtToken);
   };
 
   return (

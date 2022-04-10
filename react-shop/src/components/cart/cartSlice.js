@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getIndex } from "../helpers/array";
+import { getIndex } from "../../helpers/array";
 export const cartSlice = createSlice({
   name: "cart",
   initialState: {

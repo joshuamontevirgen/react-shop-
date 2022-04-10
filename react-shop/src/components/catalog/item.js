@@ -6,7 +6,7 @@ import {
   toggleShowFast,
   toggleShowSlow,
   toggleHover,
-} from "../../cart/cartSlice";
+} from "../../components/cart/cartSlice";
 
 //https://getbootstrap.com/docs/5.0/components/card/
 

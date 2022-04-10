@@ -10,19 +10,25 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Login from "./components/authentication/Login";
 import Profile from "./components/profile/index";
-import { AppContext } from "./lib/contextLib";
 import { getCookieValue } from "./helpers/cookies";
 import { COOKIE_JWT_TOKEN_NAME } from "./constants";
 import { Index as Catalog } from "./components/catalog/index";
 
 import store from "./store";
-import { Provider } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setAuthenticated,
+  setJwtToken,
+  setUsername,
+} from "./components/authentication/authenticationSlice";
 
 export default function App() {
   const [isLoading, setLoading] = useState(true);
-  const [isAuthenticated, setAuthenticated] = useState(false);
-  const [username, setUsername] = useState("");
-  const [jwtToken, setJwtToken] = useState("");
+
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => {
+    return state.authentication.authenticated;
+  });
   const PrivateRoute = () => {
     if (isLoading) {
       return null;
@@ -36,46 +42,33 @@ export default function App() {
     var token = getCookieValue(COOKIE_JWT_TOKEN_NAME);
 
     if (token) {
-      setAuthenticated(true);
-      setUsername(email);
-      setJwtToken(token);
+      dispatch(setAuthenticated(true));
+      dispatch(setUsername(email));
+      dispatch(setJwtToken(token));
     } else {
-      setAuthenticated(false);
-      setUsername("");
-      setJwtToken("");
+      dispatch(setAuthenticated(false));
+      dispatch(setUsername(""));
+      dispatch(setJwtToken(""));
     }
     setLoading(false);
   });
 
   return (
-    <Provider store={store}>
-      <AppContext.Provider
-        value={{
-          isAuthenticated,
-          setAuthenticated,
-          username,
-          setUsername,
-          jwtToken,
-          setJwtToken,
-        }}
-      >
-        <BrowserRouter>
-          <div className="App">
-            <Navbar />
-            <div id="main-container">
-              <Routes>
-                <Route exact path="/" element={<Catalog />} />
-                <Route exact path="/login" element={<Login />} />
-                <Route exact path="/profile" element={<PrivateRoute />}>
-                  <Route exact path="/profile" element={<Profile />} />
-                </Route>
-                <Route exact path="/catalog" element={<Catalog />} />
-              </Routes>
-            </div>
-          </div>
-        </BrowserRouter>
-      </AppContext.Provider>
-    </Provider>
+    <BrowserRouter>
+      <div className="App">
+        <Navbar />
+        <div id="main-container">
+          <Routes>
+            <Route exact path="/" element={<Catalog />} />
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/profile" element={<PrivateRoute />}>
+              <Route exact path="/profile" element={<Profile />} />
+            </Route>
+            <Route exact path="/catalog" element={<Catalog />} />
+          </Routes>
+        </div>
+      </div>
+    </BrowserRouter>
   );
 }
 
