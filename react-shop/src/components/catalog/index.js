@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { Item as CatalogItem } from "./item";
 import { API_URL } from "../../constants";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,12 +15,47 @@ import "./../../styles.css";
 //findDomMode is deprecated warning - https://github.com/reactjs/react-transition-group/issues/668
 
 export const Index = () => {
+  const numItemsLoad = 10;
   const [isLoading, setLoading] = useState(true);
+
+  //filter
   const [filteredList, setFilteredList] = useState([]);
   const [filters, setFilters] = useState([]);
+
+  //all items
   const [items, setItems] = useState([]);
   const [isGrid, setGrid] = useState(true);
-  //const nodeRef = useRef(null);
+
+  //infinite scroll
+  const [count, setCount] = useState({
+    prev: 0,
+    next: numItemsLoad,
+  });
+  const [hasMore, setHasMore] = useState(true);
+  const [currentPage, setCurrentPage] = useState([]);
+  //
+
+  //infinite scroll
+  const nextData = () => {
+    if (currentPage.length >= filteredList.length) {
+      setHasMore(false);
+      return;
+    }
+    setTimeout(() => {
+      setCurrentPage(
+        currentPage.concat(
+          filteredList.slice(
+            count.prev + numItemsLoad,
+            count.next + numItemsLoad
+          )
+        )
+      );
+    }, 1000);
+    setCount((prevState) => ({
+      prev: prevState.prev + numItemsLoad,
+      next: prevState.next + numItemsLoad,
+    }));
+  };
 
   //get items
   useEffect(() => {
@@ -29,6 +65,8 @@ export const Index = () => {
       }).then((data) => data.json());
       setItems(newItems);
       setFilteredList(newItems);
+
+      setCurrentPage(newItems.slice(0, numItemsLoad));
       setLoading(false);
     }
     fetchData();
@@ -47,7 +85,13 @@ export const Index = () => {
       });
       return filtered;
     };
-    setFilteredList(filterList());
+    var list = filterList();
+    setFilteredList(list);
+    setCurrentPage(list.slice(0, numItemsLoad));
+    setCount({
+      prev: 0,
+      next: numItemsLoad,
+    });
   }, [filters]);
 
   const handleFilterChange = (selected) => {
@@ -71,30 +115,46 @@ export const Index = () => {
           <div>Loading...</div>
         ) : (
           <div className="row col-12 m-0 p-1">
-            <TransitionGroup
-              component="ul"
-              className="d-flex flex-wrap"
-              style={{ listStyleType: "none" }}
+            <InfiniteScroll
+              dataLength={currentPage.length}
+              next={nextData}
+              hasMore={hasMore}
+              loader={
+                <p style={{ textAlign: "center" }}>
+                  <>Loading...</>
+                </p>
+              }
+              endMessage={
+                <p style={{ textAlign: "center" }}>
+                  <>End of list</>
+                </p>
+              }
             >
-              {filteredList.map((item, index) => {
-                return (
-                  <CSSTransition
-                    // nodeRef={nodeRef}
-                    key={item.id}
-                    timeout={250}
-                    classNames="item"
-                  >
-                    <li className={"m-1 p-1 " + (!isGrid && "col-12")}>
-                      <CatalogItem
-                        item={item}
-                        //  ref={nodeRef}
-                        isGrid={isGrid}
-                      />
-                    </li>
-                  </CSSTransition>
-                );
-              })}
-            </TransitionGroup>
+              <TransitionGroup
+                component="ul"
+                className="d-flex flex-wrap"
+                style={{ listStyleType: "none" }}
+              >
+                {currentPage.map((item, index) => {
+                  return (
+                    <CSSTransition
+                      // nodeRef={nodeRef}
+                      key={item.id}
+                      timeout={250}
+                      classNames="item"
+                    >
+                      <li className={"m-1 p-1 " + (!isGrid && "col-12")}>
+                        <CatalogItem
+                          item={item}
+                          //  ref={nodeRef}
+                          isGrid={isGrid}
+                        />
+                      </li>
+                    </CSSTransition>
+                  );
+                })}
+              </TransitionGroup>
+            </InfiniteScroll>
           </div>
         )}
       </div>

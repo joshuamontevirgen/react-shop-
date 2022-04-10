@@ -13,3 +13,7 @@ https://stackoverflow.com/questions/54069253/usestate-set-method-not-reflecting-
 
 https://react-redux.js.org/tutorials/quick-start
 $r.props.store.getState()
+
+
+https://blog.logrocket.com/4-ways-to-render-large-lists-in-react/
+	react-infinite-scroll-component 

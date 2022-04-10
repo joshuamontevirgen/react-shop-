@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import { useAppContext } from "../lib/contextLib";
 import { handleLogout as hl } from "./authentication/Logout";
 import { Cart } from "../components/cart/Cart";
+
 import {
   setAuthenticated,
   setUsername,

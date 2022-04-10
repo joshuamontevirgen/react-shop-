@@ -45,7 +45,13 @@ export function Item({ item, isGrid }) {
           <div className="card-body">
             <h3 className="card-title">{item.name}</h3>
             <p className="card-text">{item.desc}</p>
-            <p className="card-text">P{item.price}</p>
+            <p className="card-text">
+              P
+              {item.price.toLocaleString("en", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+            </p>
             <button className="btn" onClick={() => addItem(item)}>
               Add to cart
             </button>

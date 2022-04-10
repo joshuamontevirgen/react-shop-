@@ -82,7 +82,13 @@ export function Cart() {
                       <span className=" text-secondary small">{item.desc}</span>
                     </div>
                     <div className="item-subtotal">
-                      <span className=" ">P{item.subTotal}</span>
+                      <span className=" ">
+                        P
+                        {item.subTotal.toLocaleString("en", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </span>
                     </div>
                   </div>
                 </li>
@@ -92,7 +98,13 @@ export function Cart() {
         </div>
         <div className="total d-flex align-items-center">
           <span className="font-weight-bold"> Total </span>
-          <span className="font-weight-bold right">P{getTotal()}</span>
+          <span className="font-weight-bold right">
+            P
+            {getTotal().toLocaleString("en", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
+          </span>
         </div>
         <div className="">
           <button className="btn btn-primary btn-block ">Checkout</button>
