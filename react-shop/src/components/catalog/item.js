@@ -3,9 +3,8 @@ import { useDispatch } from "react-redux";
 import {
   addCartItem,
   subCartItem,
-  toggleShowFast,
-  toggleShowSlow,
-  toggleHover,
+  togglePopupFast,
+  togglePopupSlow,
 } from "../../components/cart/cartSlice";
 
 //https://getbootstrap.com/docs/5.0/components/card/
@@ -16,7 +15,7 @@ export function Item({ item, isGrid }) {
   const tempShowCart = {
     show: function () {
       this.timeoutID = setTimeout(function () {
-        dispatch(toggleShowSlow(false));
+        dispatch(togglePopupSlow(false));
       }, 1000);
     },
     cancel: function () {
@@ -26,7 +25,7 @@ export function Item({ item, isGrid }) {
 
   function addItem(item) {
     dispatch(addCartItem(item));
-    dispatch(toggleShowFast(true));
+    dispatch(togglePopupSlow(true));
 
     tempShowCart.cancel();
     tempShowCart.show();

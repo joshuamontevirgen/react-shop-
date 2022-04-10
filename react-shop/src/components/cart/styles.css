@@ -16,25 +16,36 @@
 #cart-popup{
     position : fixed;
     right: 10px;
-    z-index: 9999;
+    z-index: 3333;
     background-color: white;
     overflow: hidden;
     min-height: 400px;
     max-height: 400px;
-    min-width: 300px;
+    min-width: 400px;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
-    #cart-popup img{
+    #cart-popup img,
+    #side-cart img{
         height: 50px;
         width: 50px;
+    }
+
+    #cart-popup .bottom{
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom:0;
+        overflow: hidden;
     }
     #cart-popup .total{      
         padding:1em;
         margin:5px;
         width: 100%;
         height: 10px;
-        background-color: white;
+        background-color: white;        
     }
+
+
     #cart-popup .btn{      
        margin:0px;
     }
@@ -44,8 +55,8 @@
     }
 
     #cart-popup .container{
-        min-height: 320px;
-        max-height: 320px;
+        min-height: 350px;
+        max-height: 350px;
         overflow-y: auto; 
     }
 
@@ -106,13 +117,13 @@
 .fadeOutSlow{
     visibility: hidden;
     opacity:0;
-    transition:  visibility 0s 1.5s, opacity 1.5s linear;
+    transition:  visibility 0s 1.5s, opacity 1.5s ease;
 }
 
 .fadeOut{
     visibility: hidden;
     opacity:0;
-    transition: visibility 0s 0.2s, opacity 0.2s linear;
+    transition: visibility 0s 0.2s, opacity 0.2s ease;
 
 }
 .fadeIn{
@@ -122,8 +133,103 @@
 
 
 
-#cart-popup ul {
+#cart-popup ul,
+#side-cart ul{
     list-style-type: none; /* Remove bullets */
     padding-left: 0;
   }
   
+
+
+.open{
+    transform: translateX(0%) !important;
+    transition: transform .25s ease;
+}
+
+#side-cart {
+    max-height:  100vh;
+    min-height:  100vh;
+    background-color: white;
+    z-index: 9999;
+    position: fixed;
+    top:0;
+    right: 0;
+    width:400px;
+    transition: transform .25s ease;
+    transform: translateX(100%);
+    overflow-y: hidden;
+    overflow-x: hidden;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+    #side-cart .cart-content {
+        top: 50px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom:0;
+    }
+
+    #side-cart .cart-content .container{
+        max-height:  calc(100% - 120px) !important;
+        min-height: calc(100% - 120px) !important;
+        position: absolute;
+   
+    }
+
+    #side-cart .bottom{  
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom:0;
+        min-height: 120px;
+        max-height: 120px;
+        overflow: hidden;
+        padding-bottom: 0px;
+        margin-bottom: 0px;
+    }
+    #side-cart .bottom .total{      
+        padding:1.5em;
+        margin:5px;
+        width: 100%;
+        height: 10px;
+    }
+        #side-cart .bottom .buttons {
+            margin-left:0px;
+            margin-right: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+            height:calc(100% - 10px);
+            margin-bottom:0px;
+            padding-bottom: 0px;
+        }
+            #side-cart .bottom .buttons .btn{
+                margin-bottom: 0px;
+                margin-top:0px;
+            }
+
+            /*https://stackoverflow.com/questions/51401409/how-to-remove-bootstrap-4-button-click-effect*/
+            #side-cart .bottom .buttons .btn-primary:hover,
+            #side-cart .bottom .buttons .btn-primary:focus,
+            #side-cart .bottom .buttons .btn-primary:active, 
+            #side-cart .bottom .buttons .btn-primary:active:focus:not(:disabled):not(.disabled),
+            #side-cart .bottom .buttons .btn:focus, 
+            #side-cart .bottom .buttons .btn:active,
+            #side-cart .bottom .buttons .btn:hover{
+                box-shadow: none!important;
+                outline: 0;
+            }
+    
+.cart-content .container{
+    max-height:  calc(100% - 100px);
+    min-height: calc(100% - 100px);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
+}
+
+.flex-even {
+    flex: 1;
+  }

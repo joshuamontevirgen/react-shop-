@@ -1,12 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getIndex } from "../../helpers/array";
+
+function getTotal(items) {
+  return items
+    .map((item) => {
+      return item.subTotal;
+    })
+    .reduce((a, b) => a + b, 0)
+    .toLocaleString("en", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+}
+
 export const cartSlice = createSlice({
   name: "cart",
   initialState: {
     items: [],
-    show: false,
-    hover: false,
+    showSide: false,
+    showPopup: false,
     fadeOutClass: "fadeOut",
+    total: "0.00",
   },
   reducers: {
     addCartItem: (state, action) => {
@@ -21,6 +35,8 @@ export const cartSlice = createSlice({
         item.quantity++;
         item.subTotal = item.quantity * item.price;
       }
+
+      state.total = getTotal(state.items);
     },
     subCartItem: (state, action) => {
       var item = state.items.find((i) => i.id === action.payload.id);
@@ -29,22 +45,24 @@ export const cartSlice = createSlice({
       if (item.quantity == 0) {
         state.items.splice(getIndex(state.items, action.payload.id));
       }
+      state.total = getTotal(state.items);
     },
     removeCartItem: (state, action) => {
       var item = state.items.find((i) => i.id === action.payload.id);
       state.items.splice(getIndex(state.items, action.payload.id));
+      state.total = getTotal(state.items);
     },
-    toggleShowFast: (state, action) => {
-      state.fadeOutClass = "fadeOut";
-      state.show = action.payload;
-    },
-    toggleShowSlow: (state, action) => {
+    toggleSide: (state, action) => {
       state.fadeOutClass = "fadeOutSlow";
-      state.show = action.payload;
+      state.showSide = action.payload;
     },
-    toggleHover: (state, action) => {
+    togglePopupFast: (state, action) => {
       state.fadeOutClass = "fadeOut";
-      state.hover = action.payload;
+      state.showPopup = action.payload;
+    },
+    togglePopupSlow: (state, action) => {
+      state.fadeOutClass = "fadeOutSlow";
+      state.showPopup = action.payload;
     },
   },
 });
@@ -53,8 +71,8 @@ export const {
   addCartItem,
   removeCartItem,
   subCartItem,
-  toggleShowFast,
-  toggleShowSlow,
-  toggleHover,
+  toggleSide,
+  togglePopupFast,
+  togglePopupSlow,
 } = cartSlice.actions;
 export default cartSlice.reducer;
