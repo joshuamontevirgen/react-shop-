@@ -13,7 +13,6 @@ import {
   setJwtToken,
 } from "../authentication/authenticationSlice";
 const Navbar = () => {
-  // const { isAuthenticated, setAuthenticated, setUsername, setJwtToken } = useAppContext();
   const isAuthenticated = useSelector((state) => {
     return state.authentication.authenticated;
   });

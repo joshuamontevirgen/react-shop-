@@ -15,7 +15,7 @@ import "./../../styles.css";
 //findDomMode is deprecated warning - https://github.com/reactjs/react-transition-group/issues/668
 
 export const Index = () => {
-  const numItemsLoad = 10;
+  const numItemsLoad = 20;
   const [isLoading, setLoading] = useState(true);
 
   //filter

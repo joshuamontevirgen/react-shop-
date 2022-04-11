@@ -71,8 +71,46 @@
     
     /*https://stackoverflow.com/questions/23794713/how-can-i-have-two-fixed-width-columns-with-one-flexible-column-in-the-center */
     .cart-item .quantity{
-        width: 30px;
-        flex: 0 0 30px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 80px;
+        
+    }
+
+    .cart-item .quantity.active{
+        box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    }
+
+        .cart-item .quantity span{
+            display: block;
+            width: 45px;
+            text-align: center;
+        }
+
+        .cart-item .quantity .enable-controls{
+            border: 1px solid lightgrey;
+            cursor: pointer;
+        }
+        .cart-item .quantity .enable-controls.active{
+            border: 0 !important;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        
+
+        .cart-item .quantity button{
+           
+            width:25px;
+            padding:0px;
+            background-color: white;
+            border-radius: 0;
+        }
+
+    .cart-item .item-subtotal{
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 80px;
     }
 
     .cart-item .cart-item-name-wrapper{
@@ -154,7 +192,7 @@
     position: fixed;
     top:0;
     right: 0;
-    width:400px;
+    width:500px;
     transition: transform .25s ease;
     transform: translateX(100%);
     overflow-y: hidden;
@@ -227,7 +265,17 @@
     right: 0;
     top: 0;
     bottom: 0;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.no-shadow.btn:active,
+.no-shadow.btn:focus,
+.no-shadow.btn.active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 
 .flex-even {

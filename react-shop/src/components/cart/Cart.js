@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   addCartItem,
@@ -12,6 +12,7 @@ import * as Icon from "react-bootstrap-icons"; //https://icons.getbootstrap.com/
 
 import { SideCart } from "./SideCart";
 import { PopupCart } from "./PopupCart";
+import { setDisable as setPageDisable } from "../app/appSlice";
 import "./styles.css";
 
 export function Cart() {
@@ -20,14 +21,22 @@ export function Cart() {
     return state.cart.items;
   });
 
-  const showSideCart = useSelector((state) => {
+  const showSide = useSelector((state) => {
     return state.cart.showSide;
   });
 
-  function toggleSideCart() {
+  useEffect(() => {
+    showSide
+      ? document.body.classList.add("disable")
+      : document.body.classList.remove("disable");
+  }, [showSide]);
+
+  function showSideCart() {
+    dispatch(setPageDisable(true));
     dispatch(togglePopupFast(false));
-    dispatch(toggleSide(!showSideCart));
+    dispatch(toggleSide(true));
   }
+
   return (
     <div>
       <div
@@ -35,7 +44,7 @@ export function Cart() {
         className="btn"
         onMouseEnter={() => dispatch(togglePopupFast(true))}
         onMouseLeave={() => dispatch(togglePopupFast(false))}
-        onClick={toggleSideCart}
+        onClick={showSideCart}
       >
         <Icon.Cart size={35} />
         {cart.length > 0 && (
@@ -45,7 +54,6 @@ export function Cart() {
         )}
       </div>
       <PopupCart />
-      <SideCart />
     </div>
   );
 }

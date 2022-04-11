@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, forwardRef, useImperativeHandle } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { CartContent } from "./CartContent";
 import { toggleSide, togglePopupFast } from "./cartSlice";
+import { setDisable as setPageDisable } from "../app/appSlice";
 import "./styles.css";
 
 //https://upmostly.com/tutorials/react-onhover-event-handling-with-examples
+//https://codezup.com/forwardref-in-functional-components-react-hooks/
 
-export function SideCart() {
+export const SideCart = forwardRef((props, ref) => {
   const dispatch = useDispatch();
   const showSideCart = useSelector((state) => {
     return state.cart.showSide;
   });
 
   function close() {
+    dispatch(setPageDisable(false));
     dispatch(togglePopupFast(false));
     dispatch(toggleSide(false));
   }
@@ -21,12 +24,18 @@ export function SideCart() {
     return state.cart.total;
   });
 
+  useImperativeHandle(ref, () => ({
+    onPageClick: (event) => {
+      close();
+    },
+  }));
+
   return (
     <div id="side-cart" className={showSideCart ? "open" : ""}>
       <div className="top d-flex align-items-center justify-content-center p-2">
         <h2>Your Cart</h2>
       </div>
-      <CartContent enableControls={false} />
+      <CartContent enableControls={true} />
       <div className="bottom h-100 d-flex flex-column">
         <div className="total d-flex align-items-center justify-content-between">
           <h3 className="font-weight-bold"> Total </h3>
@@ -46,4 +55,4 @@ export function SideCart() {
       </div>
     </div>
   );
-}
+});

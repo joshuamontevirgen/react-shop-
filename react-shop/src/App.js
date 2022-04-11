@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect, useLayoutEffect } from "react";
+import React, { Component, useState, useEffect, useRef } from "react";
 import {
   BrowserRouter,
   Routes,
@@ -7,14 +7,12 @@ import {
   Outlet,
 } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
-import Home from "./components/Home";
 import Login from "./components/authentication/Login";
 import Profile from "./components/profile/index";
 import { getCookieValue } from "./helpers/cookies";
 import { COOKIE_JWT_TOKEN_NAME } from "./constants";
 import { Index as Catalog } from "./components/catalog/index";
 
-import store from "./store";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setAuthenticated,
@@ -22,13 +20,22 @@ import {
   setUsername,
 } from "./components/authentication/authenticationSlice";
 
+import { SideCart } from "./components/cart/SideCart";
+
 export default function App() {
   const [isLoading, setLoading] = useState(true);
 
   const dispatch = useDispatch();
+  const ref = useRef();
+
   const isAuthenticated = useSelector((state) => {
     return state.authentication.authenticated;
   });
+
+  const disabled = useSelector((state) => {
+    return state.app.disable;
+  });
+
   const PrivateRoute = () => {
     if (isLoading) {
       return null;
@@ -36,6 +43,10 @@ export default function App() {
       return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
     }
   };
+
+  function pageClick() {
+    ref.current.onPageClick();
+  }
 
   useEffect(() => {
     var email = localStorage.getItem("email");
@@ -54,21 +65,28 @@ export default function App() {
   });
 
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Navbar />
-        <div id="main-container">
-          <Routes>
-            <Route exact path="/" element={<Catalog />} />
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/profile" element={<PrivateRoute />}>
-              <Route exact path="/profile" element={<Profile />} />
-            </Route>
-            <Route exact path="/catalog" element={<Catalog />} />
-          </Routes>
+    <>
+      <SideCart ref={ref} />
+      <div
+        onClick={pageClick}
+        className={disabled ? "disable-clicks" : ""}
+      ></div>
+      <BrowserRouter>
+        <div id="App" className={disabled ? "disable" : ""}>
+          <Navbar />
+          <div id="main-container" className="">
+            <Routes>
+              <Route exact path="/" element={<Catalog />} />
+              <Route exact path="/login" element={<Login />} />
+              <Route exact path="/profile" element={<PrivateRoute />}>
+                <Route exact path="/profile" element={<Profile />} />
+              </Route>
+              <Route exact path="/catalog" element={<Catalog />} />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </>
   );
 }
 

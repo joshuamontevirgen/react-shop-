@@ -43,17 +43,17 @@ export const cartSlice = createSlice({
       item.quantity--;
       item.subTotal = item.quantity * item.price;
       if (item.quantity == 0) {
-        state.items.splice(getIndex(state.items, action.payload.id));
+        state.items.splice(getIndex(state.items, action.payload.id), 1);
       }
       state.total = getTotal(state.items);
     },
     removeCartItem: (state, action) => {
       var item = state.items.find((i) => i.id === action.payload.id);
-      state.items.splice(getIndex(state.items, action.payload.id));
+      state.items.splice(getIndex(state.items, action.payload.id), 1);
       state.total = getTotal(state.items);
     },
     toggleSide: (state, action) => {
-      state.fadeOutClass = "fadeOutSlow";
+      state.fadeOutClass = "fadeOut";
       state.showSide = action.payload;
     },
     togglePopupFast: (state, action) => {

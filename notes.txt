@@ -17,3 +17,8 @@ $r.props.store.getState()
 
 https://blog.logrocket.com/4-ways-to-render-large-lists-in-react/
 	react-infinite-scroll-component 
+
+
+https://stackoverflow.com/questions/55456604/how-to-call-a-child-method-on-parent-events-with-react
+https://codezup.com/forwardref-in-functional-components-react-hooks/
+https://blog.logrocket.com/cleaning-up-the-dom-with-forwardref-in-react/
