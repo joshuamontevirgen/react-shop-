@@ -69,7 +69,7 @@ export default function App() {
       <SideCart ref={ref} />
       <div
         onClick={pageClick}
-        className={disabled ? "disable-clicks" : ""}
+        className={disabled ? "disable-clicks active" : "disable-clicks"}
       ></div>
       <BrowserRouter>
         <div id="App" className={disabled ? "disable" : ""}>

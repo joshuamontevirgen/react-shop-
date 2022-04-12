@@ -22,3 +22,8 @@ https://blog.logrocket.com/4-ways-to-render-large-lists-in-react/
 https://stackoverflow.com/questions/55456604/how-to-call-a-child-method-on-parent-events-with-react
 https://codezup.com/forwardref-in-functional-components-react-hooks/
 https://blog.logrocket.com/cleaning-up-the-dom-with-forwardref-in-react/
+
+pass events from child to another child
+  - https://www.pluralsight.com/guides/event-listeners-in-react-components
+	you pull the function back in the parent that shares both
+	React components don't talk to each other: it's always top-down.

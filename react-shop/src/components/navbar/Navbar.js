@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useAppContext } from "../../lib/contextLib";
 import { handleLogout as hl } from "../authentication/Logout";
-import { Cart } from "../cart/Cart";
+import { PopupCart } from "../cart/PopupCart";
 import "./styles.css";
 
 import {
@@ -62,7 +62,7 @@ const Navbar = () => {
 
         <ul className="navbar-nav  ml-auto ">
           <li>
-            <Cart className="" />
+            <PopupCart />
           </li>
         </ul>
       </nav>
