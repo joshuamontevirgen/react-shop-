@@ -56,12 +56,12 @@ export const cartSlice = createSlice({
       state.showSide = action.payload;
     },
     togglePopupFast: (state, action) => {
-      state.fadeOutClass = "fadeOut";
-      state.showPopup = action.payload;
+      //  state.fadeOutClass = "fadeOut";
+      //  state.showPopup = action.payload;
     },
     togglePopupSlow: (state, action) => {
-      state.fadeOutClass = "fadeOutSlow";
-      state.showPopup = action.payload;
+      //   state.fadeOutClass = "fadeOutSlow";
+      //  state.showPopup = action.payload;
     },
   },
 });

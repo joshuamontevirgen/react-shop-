@@ -24,6 +24,7 @@ export const Index = () => {
 
   //all items
   const [items, setItems] = useState([]);
+
   const [isGrid, setGrid] = useState(true);
 
   //infinite scroll
@@ -50,7 +51,7 @@ export const Index = () => {
           )
         )
       );
-    }, 1000);
+    }, 500);
     setCount((prevState) => ({
       prev: prevState.prev + numItemsLoad,
       next: prevState.next + numItemsLoad,
@@ -105,11 +106,11 @@ export const Index = () => {
           <Filter onChange={handleFilterChange} />
         </div>
       </div>
-      <div className="container-fluid content ">
+      <div className=" content ">
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-          <div className="row col-12 m-0 p-1">
+          <div className="w-full">
             <InfiniteScroll
               dataLength={currentPage.length}
               next={nextData}
@@ -127,7 +128,7 @@ export const Index = () => {
             >
               <TransitionGroup
                 component="ul"
-                className="d-flex flex-wrap"
+                className="flex flex-wrap flex-row"
                 style={{ listStyleType: "none" }}
               >
                 {currentPage.map((item, index) => {
@@ -138,7 +139,7 @@ export const Index = () => {
                       timeout={250}
                       classNames="item"
                     >
-                      <li className={"m-1 p-1 " + (!isGrid && "col-12")}>
+                      <li className={"m-1 p-1 w-44 "}>
                         <CatalogItem
                           item={item}
                           //  ref={nodeRef}

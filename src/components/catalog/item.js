@@ -44,38 +44,38 @@ export function Item({ item, isGrid }) {
     dispatch(subCartItem(item));
   }
   return (
-    <div className="card">
-      <div className={isGrid ? "" : "row "}>
+    <div className="p-2 pt-0 mx-0 shadow-md">
+      <div className={isGrid ? "" : " "}>
         {/* add cart buttons */}
-        <div className="m-2 catalog-controls d-flex flex-row-reverse ">
+        <div className="my-2 p-0 w-full catalog-controls flex flex-row-reverse ">
           {!cartItem && (
             <button
-              className=" catalog-controls-button btn no-shadow"
+              className=" p-1 catalog-controls-button  btn no-shadow p-1 flex justify-center items-center select-none"
               onClick={() => modifyQuantity(item, addCartItem)}
             >
-              <Icon.PlusCircle></Icon.PlusCircle>
+              <Icon.PlusCircle size={20}></Icon.PlusCircle>
             </button>
           )}
           {cartItem && (
-            <div className="quantity d-flex flex-row flex-nowrap justify-content-between">
+            <div className="quantity w-full flex flex-row flex-nowrap justify-between">
               <button
-                className="catalog-controls-button btn no-shadow"
+                className="catalog-controls-button btn no-shadow  p-1 flex justify-center items-center select-none"
                 onClick={() => modifyQuantity(item, subCartItem)}
               >
                 {cartItem && cartItem.quantity > 1 ? (
-                  <Icon.Dash />
+                  <Icon.Dash size={20} />
                 ) : (
-                  <Icon.Trash3 color={"red"} />
+                  <Icon.Trash3 size={17} color={"red"} />
                 )}
               </button>
-              <span className="d-flex align-items-center text-center">
+              <span className="flex justify-center items-center select-none">
                 {cartItem && cartItem.quantity}
               </span>
               <button
-                className="catalog-controls-button btn no-shadow"
+                className="catalog-controls-button btn no-shadow p-1 flex justify-center items-center select-none"
                 onClick={() => modifyQuantity(item, addCartItem)}
               >
-                <Icon.Plus></Icon.Plus>
+                <Icon.Plus size={20}></Icon.Plus>
               </button>
             </div>
           )}
@@ -84,16 +84,16 @@ export function Item({ item, isGrid }) {
           <img className="" src={item.imageUrl}></img>
         </div>
         <div className={isGrid ? "" : "col-md-8"}>
-          <div className="card-body">
-            <h3 className="card-title">{item.name}</h3>
-            <p className="card-text">{item.desc}</p>
-            <p className="card-text">
-              P
+          <div className="">
+            <p className="font-bold">
+              ₱
               {item.price.toLocaleString("en", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
               })}
             </p>
+            <h3 className="font-normal">{item.name}</h3>
+            <p className="font-light text-sm">{item.desc}</p>
           </div>
         </div>
       </div>

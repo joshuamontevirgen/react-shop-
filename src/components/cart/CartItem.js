@@ -16,8 +16,6 @@ export const CartItem = forwardRef(
 
     const dispatch = useDispatch();
     const [showControls, setShowControls] = useState(false);
-    const [quantityNumberClasses, setQuantityNumberClasses] = useState("");
-    const [quantityDivClasses, setQuantityDivClasses] = useState("");
     const [disabledOpacity, setDisabledOpacity] = useState(1);
 
     useImperativeHandle(ref, () => ({
@@ -45,16 +43,6 @@ export const CartItem = forwardRef(
     }, [ref]); //if ref changed(when item added or removed), update
 
     useEffect(() => {
-      //quantity number
-      var qclasses = enableControls ? "enable-controls " : "";
-      qclasses += showControls ? "active " : "";
-      setQuantityNumberClasses(qclasses);
-
-      //quantity div
-      var dclasses = "quantity small d-flex flex-row ";
-      dclasses += showControls ? "active " : "";
-      setQuantityDivClasses(dclasses);
-
       showControls ? setDisabledOpacity(0.7) : setDisabledOpacity(1);
     }, [showControls, enableControls]);
 
@@ -63,39 +51,47 @@ export const CartItem = forwardRef(
     }
 
     return (
-      <li className="noselect ">
+      <li className="noselect font-light ">
         <div
           ref={cartItemDivRef}
-          className="cart-item d-flex align-items-center "
+          className="cart-item flex flex-row flex-nowrap justify-center items-center "
         >
           <img
-            className="img"
+            className={`img  ${showControls ? "opacity-70" : ""}`}
             src={item.imageUrl}
-            style={{ opacity: disabledOpacity }}
             onClick={pageClick}
           ></img>
           <div
-            className="d-flex flex-column cart-item-name-wrapper"
-            style={{ opacity: disabledOpacity }}
+            className={`flex flex-col cart-item-name-wrapper grow font-normal  ${
+              showControls ? "opacity-70" : ""
+            }`}
             onClick={pageClick}
           >
             <span> {item.name}</span>
-            <span className=" text-secondary small">{item.desc}</span>
+            <span className=" text-sm text-slate-600">{item.desc}</span>
           </div>
 
-          <span className={quantityDivClasses}>
+          <div
+            className={`quantity flex flex-row justify-center items-center select-none h-10 w-20 relative ${
+              showControls ? " active " : ""
+            }`}
+          >
             <button
-              className={showControls ? "btn no-shadow" : "hidden"}
+              className={
+                showControls
+                  ? "absolute left-0 btn no-shadow p-0 h-full flex justify-center items-center select-none"
+                  : "hidden"
+              }
               onClick={() => dispatch(subCartItem(item))}
             >
               {item.quantity > 1 ? (
-                <Icon.Dash />
+                <Icon.Dash className="" />
               ) : (
-                <Icon.Trash3 color={"red"} />
+                <Icon.Trash3 className="" color={"red"} />
               )}
             </button>
             <span
-              className={quantityNumberClasses}
+              className={`enable-controls p-0 ${showControls ? "active " : ""}`}
               onClick={() => {
                 enableControls && setShowControls(!showControls);
               }}
@@ -103,20 +99,25 @@ export const CartItem = forwardRef(
               {item.quantity}
             </span>
             <button
-              className={showControls ? "btn no-shadow" : "hidden"}
+              className={
+                showControls
+                  ? "absolute right-0 btn no-shadow p-0 h-full flex justify-center items-center select-none"
+                  : "hidden"
+              }
               onClick={() => dispatch(addCartItem(item))}
             >
-              <Icon.Plus></Icon.Plus>
+              <Icon.Plus className=""></Icon.Plus>
             </button>
-          </span>
+          </div>
 
           <div
-            className="item-subtotal small text-right"
-            style={{ opacity: disabledOpacity }}
+            className={`item-subtotal text-right flex w-20 text-sm justify-end ${
+              showControls ? "opacity-70" : ""
+            }`}
             onClick={pageClick}
           >
             <span className=" ">
-              P
+              ₱
               {item.subTotal.toLocaleString("en", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,

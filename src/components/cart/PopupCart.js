@@ -45,14 +45,14 @@ export function PopupCart() {
     <div>
       <div
         id="cart-icon-wrapper"
-        className="btn"
+        className=""
         onMouseEnter={() => dispatch(togglePopupFast(true))}
         onMouseLeave={() => dispatch(togglePopupFast(false))}
         onClick={showSideCart}
       >
         <Icon.Cart size={35} />
         {cart.length > 0 && (
-          <span className="noselect bg-danger text-light circle">
+          <span className="noselect circle text-white bg-rose-500">
             {cart.length}
           </span>
         )}
@@ -65,7 +65,7 @@ export function PopupCart() {
       >
         <CartContent enableControls={false} />
         <div className="bottom">
-          <div className="total d-flex align-items-center">
+          <div className="total ">
             <span className="font-weight-bold"> Total </span>
             <span className="font-weight-bold right">P{total}</span>
           </div>

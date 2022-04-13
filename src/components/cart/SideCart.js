@@ -32,23 +32,23 @@ export const SideCart = forwardRef((props, ref) => {
 
   return (
     <div id="side-cart" className={showSideCart ? "open" : ""}>
-      <div className="top d-flex align-items-center justify-content-center p-2">
-        <h2>Your Cart</h2>
+      <div className="top flex justify-center content-center  p-2">
+        <h2 className="font-semibold text-lg">Your Cart</h2>
       </div>
       <CartContent enableControls={true} />
-      <div className="bottom h-100 d-flex flex-column">
-        <div className="total d-flex align-items-center justify-content-between">
-          <h3 className="font-weight-bold"> Total </h3>
-          <h3 className="font-weight-bold right">P{total}</h3>
+      <div className="bottom h-full flex flex-col">
+        <div className="total flex justify-between content-center">
+          <span className=" font-semibold"> Total </span>
+          <span className=" font-semibold">P{total}</span>
         </div>
-        <div className="flex-grow-1  buttons d-flex justify-content-between ">
+        <div className="w-full grow buttons flex justify-between ">
           <button
             onClick={close}
-            className="btn-block btn btn-secondary  rounded-0 col-6"
+            className="text-black w-2/4  bg-gray-100 hover:bg-gray-300 btn justify-between content-center "
           >
             Continue Shopping
           </button>
-          <button className="btn-block btn btn-primary  rounded-0 col-6">
+          <button className="text-white w-2/4  bg-blue-500 hover:bg-blue-700 btn justify-between content-center ">
             Checkout
           </button>
         </div>

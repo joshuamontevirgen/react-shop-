@@ -20,7 +20,7 @@ export const Filter = ({ onChange }) => {
   return (
     !isLoading && (
       <div>
-        <strong>Category</strong>
+        <strong className="">Category</strong>
         <Select
           onChange={onChange}
           options={categories}

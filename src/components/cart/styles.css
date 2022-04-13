@@ -60,8 +60,7 @@
         overflow-y: auto; 
     }
 
-.cart-item{
-    padding:0.5em;    
+.cart-item{  
     min-height:  80;
 }
     .cart-item span,
@@ -72,9 +71,7 @@
     
     /*https://stackoverflow.com/questions/23794713/how-can-i-have-two-fixed-width-columns-with-one-flexible-column-in-the-center */
     .cart-item .quantity{
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 80px;
+      
         z-index: 9999!important;
         opacity: 1 !important;
     }
@@ -111,9 +108,7 @@
         }
 
     .cart-item .item-subtotal{
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 80px;
+      
     }
 
     .cart-item .cart-item-name-wrapper{
