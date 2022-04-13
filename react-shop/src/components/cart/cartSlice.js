@@ -48,7 +48,6 @@ export const cartSlice = createSlice({
       state.total = getTotal(state.items);
     },
     removeCartItem: (state, action) => {
-      var item = state.items.find((i) => i.id === action.payload.id);
       state.items.splice(getIndex(state.items, action.payload.id), 1);
       state.total = getTotal(state.items);
     },

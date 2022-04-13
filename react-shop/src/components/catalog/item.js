@@ -1,30 +1,39 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
   addCartItem,
   subCartItem,
   togglePopupFast,
   togglePopupSlow,
 } from "../../components/cart/cartSlice";
+import * as Icon from "react-bootstrap-icons"; //https://icons.getbootstrap.com/  https://github.com/ismamz/react-bootstrap-icons#readme
+import "./styles.css";
 
 //https://getbootstrap.com/docs/5.0/components/card/
 
 export function Item({ item, isGrid }) {
   const dispatch = useDispatch();
+  const cartItem = useSelector(
+    (state) =>
+      state.cart.items.find((i) => {
+        return i.id == item.id;
+      }),
+    shallowEqual
+  );
 
   const tempShowCart = {
     show: function () {
       this.timeoutID = setTimeout(function () {
         dispatch(togglePopupSlow(false));
-      }, 1000);
+      }, 500);
     },
     cancel: function () {
       clearTimeout(this.timeoutID);
     },
   };
 
-  function addItem(item) {
-    dispatch(addCartItem(item));
+  function modifyQuantity(item, fn) {
+    dispatch(fn(item));
     dispatch(togglePopupSlow(true));
 
     tempShowCart.cancel();
@@ -37,6 +46,40 @@ export function Item({ item, isGrid }) {
   return (
     <div className="card">
       <div className={isGrid ? "" : "row "}>
+        {/* add cart buttons */}
+        <div className="m-2 catalog-controls d-flex flex-row-reverse ">
+          {!cartItem && (
+            <button
+              className=" catalog-controls-button btn no-shadow"
+              onClick={() => modifyQuantity(item, addCartItem)}
+            >
+              <Icon.PlusCircle></Icon.PlusCircle>
+            </button>
+          )}
+          {cartItem && (
+            <div className="quantity d-flex flex-row flex-nowrap justify-content-between">
+              <button
+                className="catalog-controls-button btn no-shadow"
+                onClick={() => modifyQuantity(item, subCartItem)}
+              >
+                {cartItem && cartItem.quantity > 1 ? (
+                  <Icon.Dash />
+                ) : (
+                  <Icon.Trash3 color={"red"} />
+                )}
+              </button>
+              <span className="d-flex align-items-center text-center">
+                {cartItem && cartItem.quantity}
+              </span>
+              <button
+                className="catalog-controls-button btn no-shadow"
+                onClick={() => modifyQuantity(item, addCartItem)}
+              >
+                <Icon.Plus></Icon.Plus>
+              </button>
+            </div>
+          )}
+        </div>
         <div className={isGrid ? "" : "col-md-4"}>
           <img className="" src={item.imageUrl}></img>
         </div>
@@ -51,9 +94,6 @@ export function Item({ item, isGrid }) {
                 maximumFractionDigits: 2,
               })}
             </p>
-            <button className="btn" onClick={() => addItem(item)}>
-              Add to cart
-            </button>
           </div>
         </div>
       </div>

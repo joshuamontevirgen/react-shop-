@@ -20,7 +20,7 @@ export const Index = () => {
 
   //filter
   const [filteredList, setFilteredList] = useState([]);
-  const [filters, setFilters] = useState([]);
+  const [categoryfilter, setCategoryFilter] = useState([]);
 
   //all items
   const [items, setItems] = useState([]);
@@ -75,10 +75,10 @@ export const Index = () => {
   //filter
   useEffect(() => {
     const filterList = () => {
-      if (!filters.length) return items;
+      if (!categoryfilter.length) return items;
       let filtered = items.filter((item) => {
         var include = false;
-        filters.forEach((filter) => {
+        categoryfilter.forEach((filter) => {
           if (item.category === filter.value) include = true;
         });
         return include;
@@ -92,25 +92,20 @@ export const Index = () => {
       prev: 0,
       next: numItemsLoad,
     });
-  }, [filters]);
+  }, [categoryfilter]);
 
   const handleFilterChange = (selected) => {
-    setFilters([...selected]);
+    setCategoryFilter([...selected]);
   };
 
   return (
     <>
-      <div className="container-fluid bg-primary">
-        <div className="row pt-2 pb-2 bg-secondary">
-          <div className="col-5">
-            <Filter onChange={handleFilterChange} />
-          </div>
-          <button className="btn " onClick={() => setGrid(!isGrid)}>
-            <FontAwesomeIcon icon={isGrid ? faList : faGrid} />
-          </button>
+      <div className="filter">
+        <div className="">
+          <Filter onChange={handleFilterChange} />
         </div>
       </div>
-      <div className="container-fluid">
+      <div className="container-fluid content ">
         {isLoading ? (
           <div>Loading...</div>
         ) : (

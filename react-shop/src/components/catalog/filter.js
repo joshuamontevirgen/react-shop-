@@ -19,7 +19,14 @@ export const Filter = ({ onChange }) => {
 
   return (
     !isLoading && (
-      <Select onChange={onChange} options={categories} isMulti={true}></Select>
+      <div>
+        <strong>Category</strong>
+        <Select
+          onChange={onChange}
+          options={categories}
+          isMulti={true}
+        ></Select>
+      </div>
     )
   );
 };

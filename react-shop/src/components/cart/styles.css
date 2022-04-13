@@ -273,14 +273,7 @@
 }
 
 
-.no-shadow.btn:active,
-.no-shadow.btn:focus,
-.no-shadow.btn.active {
-  background-image: none;
-  outline: 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-}
+
 
 .flex-even {
     flex: 1;

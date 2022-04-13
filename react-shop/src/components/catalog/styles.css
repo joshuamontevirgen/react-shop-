@@ -1,0 +1,32 @@
+.catalog-controls{    
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 80px;
+    z-index: 9999!important;
+    opacity: 1 !important;  
+}
+
+.catalog-controls .quantity{
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    background-color: white;
+}
+
+.catalog-controls-button{
+    width:45px;
+    height: 45px;
+    padding:0px;
+    background-color: white;
+    border-radius: 0;
+}
+.filter{
+    position: fixed;
+    left:0px;
+    width: 200px;
+    background-color: lightblue;
+    padding:10px;
+}
+
+.content{
+    margin-left: 200px;
+    width: calc(100% - 200px);
+}
