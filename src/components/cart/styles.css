@@ -107,9 +107,7 @@
             border-radius: 0;
         }
 
-    .cart-item .item-subtotal{
-      
-    }
+ 
 
     .cart-item .cart-item-name-wrapper{
         flex: 1;
@@ -273,3 +271,4 @@
 .flex-even {
     flex: 1;
   }
+

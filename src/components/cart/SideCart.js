@@ -1,4 +1,4 @@
-import React, { useEffect, forwardRef, useImperativeHandle } from "react";
+import React, { forwardRef, useImperativeHandle } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { CartContent } from "./CartContent";
 import { toggleSide, togglePopupFast } from "./cartSlice";

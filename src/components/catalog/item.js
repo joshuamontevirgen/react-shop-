@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
   addCartItem,
   subCartItem,
-  togglePopupFast,
   togglePopupSlow,
 } from "../../components/cart/cartSlice";
 import * as Icon from "react-bootstrap-icons"; //https://icons.getbootstrap.com/  https://github.com/ismamz/react-bootstrap-icons#readme
@@ -16,7 +15,7 @@ export function Item({ item, isGrid }) {
   const cartItem = useSelector(
     (state) =>
       state.cart.items.find((i) => {
-        return i.id == item.id;
+        return i.id === item.id;
       }),
     shallowEqual
   );
@@ -40,9 +39,6 @@ export function Item({ item, isGrid }) {
     tempShowCart.show();
   }
 
-  function subItem(item) {
-    dispatch(subCartItem(item));
-  }
   return (
     <div className="p-2 pt-0 mx-0 shadow-md">
       <div className={isGrid ? "" : " "}>
@@ -81,7 +77,7 @@ export function Item({ item, isGrid }) {
           )}
         </div>
         <div className={isGrid ? "" : "col-md-4"}>
-          <img className="" src={item.imageUrl}></img>
+          <img alt="item" className="" src={item.imageUrl}></img>
         </div>
         <div className={isGrid ? "" : "col-md-8"}>
           <div className="">

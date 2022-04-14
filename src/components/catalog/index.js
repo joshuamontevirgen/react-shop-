@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { useParams } from "react-router-dom";
 import { Item as CatalogItem } from "./item";
 import { API_URL } from "../../constants";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList, faGrip as faGrid } from "@fortawesome/free-solid-svg-icons";
-import { Filter } from "./filter";
+import { useCategoryFilter } from "./filter/useCategoryFilter";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./../../styles.css";
 
@@ -18,30 +17,27 @@ export const Index = () => {
   const numItemsLoad = 20;
   const [isLoading, setLoading] = useState(true);
 
-  //filter
-  const [filteredList, setFilteredList] = useState([]);
-  const [categoryfilter, setCategoryFilter] = useState([]);
+  const [filteredList, filterList, getFilterPanelDiv] = useCategoryFilter();
+  //#region url filter
+  const params = useParams();
+  useEffect(() => {
+    filterList(items, params);
+  }, [params]);
+  //#endregion url filter
 
-  //all items
-  const [items, setItems] = useState([]);
-
-  const [isGrid, setGrid] = useState(true);
-
-  //infinite scroll
+  //#region infinitescroll
   const [count, setCount] = useState({
     prev: 0,
     next: numItemsLoad,
   });
   const [hasMore, setHasMore] = useState(true);
   const [currentPage, setCurrentPage] = useState([]);
-  //
-
-  //infinite scroll
   const nextData = () => {
     if (currentPage.length >= filteredList.length) {
       setHasMore(false);
       return;
     }
+
     setTimeout(() => {
       setCurrentPage(
         currentPage.concat(
@@ -58,53 +54,37 @@ export const Index = () => {
     }));
   };
 
-  //get items
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setHasMore(true);
+    setCount({
+      prev: 0,
+      next: numItemsLoad,
+    });
+    setCurrentPage(filteredList.slice(0, numItemsLoad));
+    setLoading(false);
+  }, [filteredList]);
+  //#endregion infinitescroll
+
+  //#region getitems
+  const [items, setItems] = useState([]);
+
   useEffect(() => {
     async function fetchData() {
       const newItems = await fetch(API_URL + "/api/catalog", {
         method: "GET",
       }).then((data) => data.json());
       setItems(newItems);
-      setFilteredList(newItems);
-
-      setCurrentPage(newItems.slice(0, numItemsLoad));
-      setLoading(false);
+      params && filterList(newItems, params);
     }
     fetchData();
   }, []);
-
-  //filter
-  useEffect(() => {
-    const filterList = () => {
-      if (!categoryfilter.length) return items;
-      let filtered = items.filter((item) => {
-        var include = false;
-        categoryfilter.forEach((filter) => {
-          if (item.category === filter.value) include = true;
-        });
-        return include;
-      });
-      return filtered;
-    };
-    var list = filterList();
-    setFilteredList(list);
-    setCurrentPage(list.slice(0, numItemsLoad));
-    setCount({
-      prev: 0,
-      next: numItemsLoad,
-    });
-  }, [categoryfilter]);
-
-  const handleFilterChange = (selected) => {
-    setCategoryFilter([...selected]);
-  };
+  //#endregion getitems
 
   return (
     <>
-      <div className="filter">
-        <div className="">
-          <Filter onChange={handleFilterChange} />
-        </div>
+      <div className="fixed w-48 pl-5 pt-5 ">
+        <div className="">{getFilterPanelDiv()}</div>
       </div>
       <div className=" content ">
         {isLoading ? (
@@ -116,9 +96,13 @@ export const Index = () => {
               next={nextData}
               hasMore={hasMore}
               loader={
-                <p style={{ textAlign: "center" }}>
-                  <>Loading...</>
-                </p>
+                <div>
+                  <svg
+                    className="animate-spin h-5 w-5 mr-3 "
+                    viewBox="0 0 24 24"
+                  ></svg>
+                  Loading...
+                </div>
               }
               endMessage={
                 <p style={{ textAlign: "center" }}>
@@ -140,11 +124,7 @@ export const Index = () => {
                       classNames="item"
                     >
                       <li className={"m-1 p-1 w-44 "}>
-                        <CatalogItem
-                          item={item}
-                          //  ref={nodeRef}
-                          isGrid={isGrid}
-                        />
+                        <CatalogItem item={item} />
                       </li>
                     </CSSTransition>
                   );

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useAppContext } from "../../lib/contextLib";
 import { useNavigate } from "react-router-dom";
 import { setCookie } from "../../helpers/cookies";
 import { COOKIE_JWT_TOKEN_NAME, API_URL } from "../../constants";

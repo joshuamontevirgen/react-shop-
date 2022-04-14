@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect, createRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { addCartItem, removeCartItem, subCartItem } from "./cartSlice";
+import React, { useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { CartItem } from "./CartItem";
 
 import "./styles.css";
@@ -10,7 +9,6 @@ import "./styles.css";
 //https://stackoverflow.com/questions/54633690/how-can-i-use-multiple-refs-for-an-array-of-elements-with-hooks
 
 export function CartContent({ enableControls }) {
-  const dispatch = useDispatch();
   const itemsRef = useRef([]);
 
   const cart = useSelector((state) => {

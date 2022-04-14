@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
-import { useAppContext } from "../../lib/contextLib";
 import { handleLogout as hl } from "../authentication/Logout";
 import { PopupCart } from "../cart/PopupCart";
 import "./styles.css";
@@ -32,7 +30,7 @@ const Navbar = () => {
           <div className="font-light ">
             <ul className="flex items-center justify-end">
               <li className="">
-                <Link className="block py-1 px-3 hover:font-normal" to="/">
+                <Link className="block py-1 px-3 hover:font-normal" to="/home">
                   Home
                 </Link>
               </li>

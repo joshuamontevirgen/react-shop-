@@ -52,9 +52,11 @@ export function PopupCart() {
       >
         <Icon.Cart size={35} />
         {cart.length > 0 && (
-          <span className="noselect circle text-white bg-rose-500">
-            {cart.length}
-          </span>
+          <div>
+            <span className="noselect ping-once rounded-full text-sm m-0 p-0 h-5 w-5 h-full w-full text-white bg-rose-500 flex justify-center text-center">
+              {cart.length}
+            </span>
+          </div>
         )}
       </div>
       <div

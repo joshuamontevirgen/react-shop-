@@ -42,7 +42,7 @@ export const cartSlice = createSlice({
       var item = state.items.find((i) => i.id === action.payload.id);
       item.quantity--;
       item.subTotal = item.quantity * item.price;
-      if (item.quantity == 0) {
+      if (item.quantity === 0) {
         state.items.splice(getIndex(state.items, action.payload.id), 1);
       }
       state.total = getTotal(state.items);

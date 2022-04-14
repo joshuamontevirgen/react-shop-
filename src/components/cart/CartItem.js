@@ -5,8 +5,8 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { addCartItem, removeCartItem, subCartItem } from "./cartSlice";
+import { useDispatch } from "react-redux";
+import { addCartItem, subCartItem } from "./cartSlice";
 import * as Icon from "react-bootstrap-icons"; //https://icons.getbootstrap.com/  https://github.com/ismamz/react-bootstrap-icons#readme
 import "./styles.css";
 
@@ -16,7 +16,6 @@ export const CartItem = forwardRef(
 
     const dispatch = useDispatch();
     const [showControls, setShowControls] = useState(false);
-    const [disabledOpacity, setDisabledOpacity] = useState(1);
 
     useImperativeHandle(ref, () => ({
       hide: () => {
@@ -42,10 +41,6 @@ export const CartItem = forwardRef(
       }
     }, [ref]); //if ref changed(when item added or removed), update
 
-    useEffect(() => {
-      showControls ? setDisabledOpacity(0.7) : setDisabledOpacity(1);
-    }, [showControls, enableControls]);
-
     function pageClick() {
       setShowControls(false);
     }
@@ -57,6 +52,7 @@ export const CartItem = forwardRef(
           className="cart-item flex flex-row flex-nowrap justify-center items-center "
         >
           <img
+            alt="item"
             className={`img  ${showControls ? "opacity-70" : ""}`}
             src={item.imageUrl}
             onClick={pageClick}

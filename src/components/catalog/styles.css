@@ -17,13 +17,7 @@
     background-color: white;
     border-radius: 0;
 }
-.filter{
-    position: fixed;
-    left:0px;
-    width: 200px;
-    background-color: lightblue;
-    padding:10px;
-}
+
 
 .content{
     margin-left: 200px;
