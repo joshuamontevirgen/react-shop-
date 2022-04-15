@@ -32,3 +32,9 @@ pass events from child to another child
 https://stackoverflow.com/questions/66264894/reacts-useselector-with-array-of-objects
 https://react-redux.js.org/api/hooks#equality-comparisons-and-updates
   shallow equal - https://stackoverflow.com/questions/67384049/how-exactly-useselector-works
+
+
+
+  https://stackoverflow.com/questions/27928372/react-router-urls-dont-work-when-refreshing-or-writing-manually
+  https://antbutcher.medium.com/hosting-a-react-js-app-on-azure-blob-storage-azure-cdn-for-ssl-and-routing-8fdf4a48feeb
+  https://stackoverflow.com/questions/69348162/urls-dont-work-on-refresh-withing-react-app-hosted-on-azure
