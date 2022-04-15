@@ -19,7 +19,8 @@ export const Index = () => {
   const [items, setItems] = useState([]);
   const params = useParams();
 
-  const [filteredList, filterList, getFilterPanelDiv] = useCategoryFilter();
+  const [filteredList, filterList, getFilterPanelDiv, getCategoriesHeaderDiv] =
+    useCategoryFilter();
   //#region url filter
   useEffect(() => {
     filterList(items, params);
@@ -83,14 +84,15 @@ export const Index = () => {
 
   return (
     <>
-      <div className="fixed w-48 pl-5 pt-5 ">
+      <div className="fixed w-48 pl-5 pt-5 " style={{ zIndex: 1000 }}>
         <div className="">{getFilterPanelDiv()}</div>
       </div>
       <div className=" content ">
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-          <div className="w-full">
+          <div className="w-full flex flex-col">
+            <div>{getCategoriesHeaderDiv()}</div>
             <InfiniteScroll
               dataLength={currentPage.length}
               next={nextData}

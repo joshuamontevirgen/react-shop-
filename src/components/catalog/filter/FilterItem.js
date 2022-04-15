@@ -23,7 +23,7 @@ export const FilterItem = ({ item }) => {
       </Link>
 
       <div
-        className={`z-50 bg-white absolute ml-40 p-0 flex border flex-col w-96 ${
+        className={` bg-white absolute ml-40 p-0 flex border flex-col  w-96 ${
           !(isHover || isPopupHover) && "hidden"
         }`}
         onMouseEnter={() => setPopupHover(true)}
