@@ -16,13 +16,14 @@ import "./../../styles.css";
 export const Index = () => {
   const numItemsLoad = 20;
   const [isLoading, setLoading] = useState(true);
+  const [items, setItems] = useState([]);
+  const params = useParams();
 
   const [filteredList, filterList, getFilterPanelDiv] = useCategoryFilter();
   //#region url filter
-  const params = useParams();
   useEffect(() => {
     filterList(items, params);
-  }, [params]);
+  }, [items, params]);
   //#endregion url filter
 
   //#region infinitescroll
@@ -67,7 +68,6 @@ export const Index = () => {
   //#endregion infinitescroll
 
   //#region getitems
-  const [items, setItems] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
