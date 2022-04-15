@@ -24,7 +24,7 @@ export function useCategoryFilter() {
           return item.category === categoryFilter.subcategory;
         })
       );
-    } else if (categoryFilter.category) {
+    } else if (categoryFilter.category && parentCategoryList.length > 0) {
       var list = items.filter((item) => {
         var parent = parentCategoryList.find(
           (c) => c.value === categoryFilter.category
