@@ -52,7 +52,7 @@ export function useCategoryFilter() {
   function getFilterPanelDiv() {
     return (
       !isLoading && (
-        <div className="">
+        <div className="select-none">
           <strong className="">Category</strong>
 
           {parentCategoryList.map((item, index) => {
@@ -67,7 +67,7 @@ export function useCategoryFilter() {
     return (
       !isLoading &&
       selectedCategory && (
-        <div className="relative h-48 w-full flex justify-center items-center ">
+        <div className="relative h-48 w-full flex justify-center items-center select-none">
           <div className="flex flex-col w-full fixed justify-center items-center bg-white">
             <strong className="font-light text-7xl my-5">
               {selectedParentCategory.label}

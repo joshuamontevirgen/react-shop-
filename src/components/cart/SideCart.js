@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { CartContent } from "./CartContent";
 import { toggleSide, togglePopupFast } from "./cartSlice";
 import { setDisable as setPageDisable } from "../app/appSlice";
+import { Link } from "react-router-dom";
 import "./styles.css";
 
 //https://upmostly.com/tutorials/react-onhover-event-handling-with-examples
@@ -44,13 +45,15 @@ export const SideCart = forwardRef((props, ref) => {
         <div className="w-full grow buttons flex justify-between ">
           <button
             onClick={close}
-            className="text-black w-2/4  bg-gray-100 hover:bg-gray-300 btn justify-between content-center "
+            className="text-2xl font-light text-black w-2/4  bg-gray-100 hover:bg-gray-300 btn justify-between content-center "
           >
             Continue Shopping
           </button>
-          <button className="text-white w-2/4  bg-blue-500 hover:bg-blue-700 btn justify-between content-center ">
-            Checkout
-          </button>
+          <Link to="/checkout" className=" w-2/4" onClick={close}>
+            <button className="text-2xl font-light  text-white w-full h-full bg-slate-500 hover:bg-slate-700 btn justify-between content-center ">
+              Checkout
+            </button>
+          </Link>
         </div>
       </div>
     </div>
