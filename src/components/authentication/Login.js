@@ -32,7 +32,7 @@ export default function Login() {
       dispatch(setJwtToken(user.token));
       localStorage.setItem("email", email);
       document.cookie = setCookie(COOKIE_JWT_TOKEN_NAME, user.token, 5);
-      navigate("/");
+      navigate("/home");
     } else {
       alert("wrong username/password");
     }
@@ -58,7 +58,7 @@ export default function Login() {
           <div className="mb-4">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="email"
+              htmlFor="email"
             >
               Email
             </label>
@@ -74,7 +74,7 @@ export default function Login() {
           <div className="mb-6">
             <label
               className="block text-gray-700 text-sm font-bold mb-2"
-              for="password"
+              htmlFor="password"
             >
               Password
             </label>

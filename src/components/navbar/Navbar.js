@@ -1,24 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { handleLogout as hl } from "../authentication/Logout";
 import { PopupCart } from "../cart/PopupCart";
+import { useAuth } from "../authentication/useAuth";
 import "./styles.css";
 
-import {
-  setAuthenticated,
-  setUsername,
-  setJwtToken,
-} from "../authentication/authenticationSlice";
 const Navbar = () => {
-  const isAuthenticated = useSelector((state) => {
-    return state.authentication.authenticated;
-  });
-  const dispatch = useDispatch();
-  const handleLogout = () => {
-    hl(dispatch, setAuthenticated, setUsername, setJwtToken);
-  };
-
+  const [isAuthLoading, isAuthenticated, logout] = useAuth();
   return (
     <>
       <nav
@@ -53,7 +40,7 @@ const Navbar = () => {
                 {isAuthenticated ? (
                   <Link
                     className="block py-1 px-3 hover:font-normal"
-                    onClick={handleLogout}
+                    onClick={() => logout()}
                     to="/login"
                   >
                     Logout
