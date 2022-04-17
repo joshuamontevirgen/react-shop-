@@ -13,10 +13,6 @@ export function CartContent({ enableControls }) {
     return state.cart.items;
   });
 
-  const showSide = useSelector((state) => {
-    return state.cart.showSide;
-  });
-
   return (
     <>
       <div className="cart-content">

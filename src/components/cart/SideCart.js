@@ -1,10 +1,8 @@
 import React, { useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { CartContent } from "./CartContent";
-import { toggleSide, togglePopupFast } from "./cartSlice";
-import { setDisable as setPageDisable } from "../app/appSlice";
+import { toggleSide } from "./cartSlice";
 import { Link } from "react-router-dom";
-import { useWhatChanged } from "@simbathesailor/use-what-changed";
 import { useOnClickOutside } from "../app/useOnClickOutside";
 
 import "./styles.css";
