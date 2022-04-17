@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useAddress } from "./useAddress";
 import { AddressItem } from "./AddressItem";
+import { Modal } from "../../modal/Modal";
+import { AddressFormModal } from "./AddressFormModal";
 
 export function SelectAddressWidget() {
   const [isLoading, addresses, fetchData] = useAddress();
@@ -41,9 +43,9 @@ export function SelectAddressWidget() {
         {!selectedDeliveryAddress && (
           <div className="flex flex-col">
             {addresses.map((address, index) => (
-              <div className="flex flex-row m-1">
+              <div className="flex flex-row m-1" key={address.id}>
                 <div>
-                  <AddressItem address={address} key={address.id} />
+                  <AddressItem address={address} />
                 </div>
                 <button
                   className="text-white bg-slate-500 hover:bg-slate-700"
@@ -54,9 +56,7 @@ export function SelectAddressWidget() {
               </div>
             ))}
             <div>
-              <button className="text-white bg-slate-500 hover:bg-slate-700">
-                Create new address
-              </button>
+              <AddressFormModal onSaveAddressCallback={fetchData} />
             </div>
           </div>
         )}

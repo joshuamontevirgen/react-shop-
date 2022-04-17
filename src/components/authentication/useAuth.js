@@ -7,9 +7,11 @@ import {
   setJwtToken,
   setUsername,
 } from "./authenticationSlice";
+import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 export function useAuth() {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(true);
   const isAuthenticated = useSelector((state) => {
     return state.authentication.authenticated;
   });
@@ -19,9 +21,9 @@ export function useAuth() {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     var email = localStorage.getItem("email");
     var token = getCookieValue(COOKIE_JWT_TOKEN_NAME);
-
     if (token) {
       dispatch(setAuthenticated(true));
       dispatch(setUsername(email));
@@ -29,15 +31,16 @@ export function useAuth() {
     } else {
       dispatch(setAuthenticated(false));
     }
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isAuthenticated && !isLoading) {
       setCookie(COOKIE_JWT_TOKEN_NAME, "", -5);
       localStorage.setItem("email", "");
       dispatch(setUsername(""));
       dispatch(setJwtToken(""));
     }
   }, [isAuthenticated]);
-  return [isAuthenticated, logout];
+  return [isLoading, isAuthenticated, logout];
 }

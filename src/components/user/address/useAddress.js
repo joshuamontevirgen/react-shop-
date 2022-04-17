@@ -20,7 +20,6 @@ export function useAddress() {
     }).then((data) => data.json());
     setAddresses(data);
     setLoading(false);
-    console.log(data);
   }
 
   useEffect(() => {

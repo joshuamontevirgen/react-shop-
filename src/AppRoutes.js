@@ -8,8 +8,9 @@ import { Index as Checkout } from "./components/checkout/Index";
 import { useAuth } from "./components/authentication/useAuth";
 
 export function AppRoutes() {
-  const [isAuthenticated] = useAuth();
+  const [isAuthLoading, isAuthenticated] = useAuth();
   const PrivateRoute = () => {
+    if (isAuthLoading) return null;
     return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
   };
 

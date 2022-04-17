@@ -5,7 +5,7 @@ import { useAuth } from "../authentication/useAuth";
 import "./styles.css";
 
 const Navbar = () => {
-  const [isAuthenticated, logout] = useAuth();
+  const [isAuthLoading, isAuthenticated, logout] = useAuth();
   return (
     <>
       <nav
