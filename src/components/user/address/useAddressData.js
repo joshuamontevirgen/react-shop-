@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { API_URL } from "../../../constants";
-import { getCookieValue } from "../../../helpers/cookies";
-import { COOKIE_JWT_TOKEN_NAME } from "../../../constants";
+import { getToken } from "../../authentication/getToken";
 
-export function useAddress() {
+export function useAddressData() {
   const [isLoading, setLoading] = useState(true);
   const [addresses, setAddresses] = useState([]);
-
-  var token = getCookieValue(COOKIE_JWT_TOKEN_NAME);
 
   async function fetchData() {
     setLoading(true);
@@ -15,7 +12,7 @@ export function useAddress() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
+        Authorization: "Bearer " + getToken(),
       },
     }).then((data) => data.json());
     setAddresses(data);

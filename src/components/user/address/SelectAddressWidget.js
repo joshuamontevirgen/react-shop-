@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { useAddress } from "./useAddress";
+import React, { useState, useEffect } from "react";
+import { useAddressData } from "./useAddressData";
 import { AddressItem } from "./AddressItem";
-import { Modal } from "../../modal/Modal";
 import { AddressFormModal } from "./AddressFormModal";
 
 export function SelectAddressWidget() {
-  const [isLoading, addresses, fetchData] = useAddress();
-  const [selectedDeliveryAddress, setSelectedDeliveryAddress] = useState();
+  const [isAddressLoading, addresses, fetchData] = useAddressData();
+  const [selectedDeliveryAddress, setSelectedDeliveryAddress] = useState(null);
 
   const handleAddressSelect = (address) => {
     setSelectedDeliveryAddress(address);

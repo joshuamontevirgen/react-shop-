@@ -9,8 +9,8 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className="fixed w-full top-0 bg-white px-2 px-4 py-2.5 rounded border-b "
-        style={{ zIndex: 999 }}
+        className="sticky w-full top-0 bg-white px-2 px-4 py-2.5 rounded border-b "
+        style={{ zIndex: 1 }}
       >
         <div className="container flex flex-nowrap justify-between items-center mx-auto">
           <a className="" href="#">
