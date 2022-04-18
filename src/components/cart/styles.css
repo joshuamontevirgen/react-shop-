@@ -148,22 +148,6 @@
 }
 
 
-.fadeOutSlow{
-    visibility: hidden;
-    opacity:0;
-    transition:  visibility 0s 3s, opacity 3s ease-in;
-}
-
-.fadeOut{
-    visibility: hidden;
-    opacity:0;
-    transition: visibility 0s 0.2s, opacity 0.2s ease;
-
-}
-.fadeIn{
-    opacity:1;  
-    transition: 0.2s linear;
-}
 
 
 

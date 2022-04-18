@@ -9,32 +9,9 @@ import "./styles.css";
 //https://stackoverflow.com/questions/54633690/how-can-i-use-multiple-refs-for-an-array-of-elements-with-hooks
 
 export function CartContent({ enableControls }) {
-  const itemsRef = useRef([]);
-
   const cart = useSelector((state) => {
     return state.cart.items;
   });
-
-  const showSide = useSelector((state) => {
-    return state.cart.showSide;
-  });
-
-  useEffect(() => {
-    itemsRef.current = itemsRef.current.slice(0, cart.length);
-  }, [cart]);
-
-  useEffect(() => {
-    itemsRef.current.forEach((item, index) => {
-      item.hide();
-    });
-  }, [showSide]);
-
-  const handleCartItemClick = (event) => {
-    //hide other items' controls
-    itemsRef.current.forEach((item, index) => {
-      event.index !== index && item.hide();
-    });
-  };
 
   return (
     <>
@@ -48,8 +25,6 @@ export function CartContent({ enableControls }) {
                   enableControls={enableControls}
                   key={item.id}
                   index={index}
-                  handleCartItemClick={handleCartItemClick}
-                  ref={(ref) => (itemsRef.current[index] = ref)}
                 />
               );
             })}

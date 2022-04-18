@@ -4,7 +4,6 @@ import { toggleSide, togglePopupFast } from "./cartSlice";
 import * as Icon from "react-bootstrap-icons"; //https://icons.getbootstrap.com/  https://github.com/ismamz/react-bootstrap-icons#readme
 
 import { CartContent } from "./CartContent";
-import { setDisable as setPageDisable } from "../app/appSlice";
 import "./styles.css";
 
 export function PopupCart() {
@@ -21,10 +20,6 @@ export function PopupCart() {
     return state.cart.showPopup;
   });
 
-  const fadeOutClass = useSelector((state) => {
-    return state.cart.fadeOutClass;
-  });
-
   const total = useSelector((state) => {
     return state.cart.total;
   });
@@ -36,20 +31,14 @@ export function PopupCart() {
   }, [isSideCartShown]);
 
   function showSideCart() {
-    dispatch(setPageDisable(true));
-    dispatch(togglePopupFast(false));
+    //dispatch(setPageDisable(true));
+    // dispatch(togglePopupFast(false));
     dispatch(toggleSide(true));
   }
 
   return (
     <div>
-      <div
-        id="cart-icon-wrapper"
-        className=""
-        onMouseEnter={() => dispatch(togglePopupFast(true))}
-        onMouseLeave={() => dispatch(togglePopupFast(false))}
-        onClick={showSideCart}
-      >
+      <div id="cart-icon-wrapper" className="" onClick={showSideCart}>
         <Icon.Cart size={35} />
         {cart.length > 0 && (
           <div>
@@ -61,9 +50,7 @@ export function PopupCart() {
       </div>
       <div
         id="cart-popup"
-        onMouseEnter={() => dispatch(togglePopupFast(true))}
-        onMouseLeave={() => dispatch(togglePopupFast(false))}
-        className={!isSideCartShown && showPopup ? "fadeIn" : fadeOutClass}
+        className={!isSideCartShown && showPopup ? "fadeIn" : "fadeOut"}
       >
         <CartContent enableControls={false} />
         <div className="bottom">

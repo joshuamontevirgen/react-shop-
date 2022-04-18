@@ -7,7 +7,6 @@ import {
   setJwtToken,
   setUsername,
 } from "./authenticationSlice";
-import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 export function useAuth() {
   const dispatch = useDispatch();

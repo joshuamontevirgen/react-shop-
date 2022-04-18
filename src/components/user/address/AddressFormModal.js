@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useOnClickOutside } from "../../app/useOnClickOutside";
 import { API_URL } from "../../../constants";
-import { useToken } from "../../authentication/useToken";
+import { getToken } from "../../authentication/getToken";
 
 export function AddressFormModal({ onSaveAddressCallback }) {
   const [address, setAddress] = useState("");
@@ -10,13 +10,9 @@ export function AddressFormModal({ onSaveAddressCallback }) {
   const [showModal, setShowModal] = React.useState(false);
   const modalRef = useRef();
 
-  const token = useToken();
-
   useOnClickOutside(modalRef, () => showModal && setShowModal(false));
   const handleAdd = async (e) => {
-    console.log("a");
     const res = await addAddress({ address, city, zipCode });
-    console.log(res);
     if (res) {
       setShowModal(false);
       onSaveAddressCallback();
@@ -30,7 +26,7 @@ export function AddressFormModal({ onSaveAddressCallback }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
+        Authorization: "Bearer " + getToken(),
       },
       body: JSON.stringify(address),
     }).then((data) => data.json());
@@ -38,8 +34,14 @@ export function AddressFormModal({ onSaveAddressCallback }) {
 
   return (
     <>
+      <div
+        style={{ zIndex: 999 }}
+        className={` fixed inset-0 h-vh bg-black ${
+          showModal ? " fadeIn " : "fadeOut "
+        }`}
+      />
       <button
-        className="text-white bg-slate-500 hover:bg-slate-700"
+        className="px-3 py-1 text-white bg-slate-500 hover:bg-slate-700 text-sm font-light flex justify-center items-center w-full"
         type="button"
         onClick={() => setShowModal(true)}
       >
@@ -47,7 +49,10 @@ export function AddressFormModal({ onSaveAddressCallback }) {
       </button>
       {showModal ? (
         <div>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+          <div
+            style={{ zIndex: 1000 }}
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+          >
             <div
               className="relative w-auto my-6 mx-auto max-w-3xl"
               ref={modalRef}
@@ -137,7 +142,6 @@ export function AddressFormModal({ onSaveAddressCallback }) {
               </div>
             </div>
           </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </div>
       ) : null}
     </>
