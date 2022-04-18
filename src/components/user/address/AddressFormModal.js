@@ -41,7 +41,7 @@ export function AddressFormModal({ onSaveAddressCallback }) {
         }`}
       />
       <button
-        className="text-white bg-slate-500 hover:bg-slate-700"
+        className="px-3 py-1 text-white bg-slate-500 hover:bg-slate-700 text-sm font-light flex justify-center items-center w-full"
         type="button"
         onClick={() => setShowModal(true)}
       >

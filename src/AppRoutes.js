@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import Login from "./components/authentication/Login";
+import Registration from "./components/authentication/Registration";
 import Profile from "./components/user/profile/index";
 import { Index as Catalog } from "./components/catalog/index";
 import { Index as Checkout } from "./components/checkout/Index";
@@ -18,6 +19,7 @@ export function AppRoutes() {
     <Routes>
       <Route exact path="/home" element={<Catalog />} />
       <Route exact path="/login" element={<Login />} />
+      <Route exact path="/register" element={<Registration />} />
       <Route exact path="/checkout" element={<PrivateRoute />}>
         <Route exact path="/checkout" element={<Checkout />} />
       </Route>

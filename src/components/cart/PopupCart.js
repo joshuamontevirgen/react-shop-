@@ -38,13 +38,7 @@ export function PopupCart() {
 
   return (
     <div>
-      <div
-        id="cart-icon-wrapper"
-        className=""
-        onMouseEnter={() => dispatch(togglePopupFast(true))}
-        onMouseLeave={() => dispatch(togglePopupFast(false))}
-        onClick={showSideCart}
-      >
+      <div id="cart-icon-wrapper" className="" onClick={showSideCart}>
         <Icon.Cart size={35} />
         {cart.length > 0 && (
           <div>
@@ -56,8 +50,6 @@ export function PopupCart() {
       </div>
       <div
         id="cart-popup"
-        onMouseEnter={() => dispatch(togglePopupFast(true))}
-        onMouseLeave={() => dispatch(togglePopupFast(false))}
         className={!isSideCartShown && showPopup ? "fadeIn" : "fadeOut"}
       >
         <CartContent enableControls={false} />
