@@ -1,10 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import {
-  addCartItem,
-  subCartItem,
-  togglePopupSlow,
-} from "../../components/cart/cartSlice";
+import { addCartItem, subCartItem } from "../../components/cart/cartSlice";
 import * as Icon from "react-bootstrap-icons"; //https://icons.getbootstrap.com/  https://github.com/ismamz/react-bootstrap-icons#readme
 import "./styles.css";
 
@@ -20,23 +16,8 @@ export function Item({ item, isGrid }) {
     shallowEqual
   );
 
-  const tempShowCart = {
-    show: function () {
-      this.timeoutID = setTimeout(function () {
-        dispatch(togglePopupSlow(false));
-      }, 500);
-    },
-    cancel: function () {
-      clearTimeout(this.timeoutID);
-    },
-  };
-
   function modifyQuantity(item, fn) {
     dispatch(fn(item));
-    dispatch(togglePopupSlow(true));
-
-    tempShowCart.cancel();
-    tempShowCart.show();
   }
 
   return (

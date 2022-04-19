@@ -3,7 +3,7 @@ import { useAddressData } from "./useAddressData";
 import { AddressItem } from "./AddressItem";
 import { AddressFormModal } from "./AddressFormModal";
 
-export function SelectAddressWidget() {
+export function SelectAddressWidget({ setFormSelectedId }) {
   const addressEndListRef = useRef(null);
   const [firstLoad, setFirstLoad] = useState(true);
   const [isAddressLoading, addresses, fetchData] = useAddressData();
@@ -11,6 +11,7 @@ export function SelectAddressWidget() {
 
   const handleAddressSelect = (address) => {
     setSelectedDeliveryAddress(address);
+    setFormSelectedId && setFormSelectedId(address?.id);
   };
 
   function scrollToBottom() {
@@ -20,7 +21,9 @@ export function SelectAddressWidget() {
 
   useEffect(() => {
     if (!isAddressLoading && firstLoad) {
-      setSelectedDeliveryAddress(addresses.find((e) => true));
+      var address = addresses.find((e) => true);
+      setFormSelectedId && setFormSelectedId(address?.id);
+      setSelectedDeliveryAddress(address);
       setFirstLoad(false);
     }
   }, [isAddressLoading]);
@@ -30,7 +33,7 @@ export function SelectAddressWidget() {
   }, [!isAddressLoading, addresses, addressEndListRef]);
 
   return (
-    <div className="shadow1 p-8 flex flex-col">
+    <div className="shadow-lg p-8 flex flex-col  my-0">
       <div className="sticky top-0 whitespace-nowrap font-light text-2xl">
         Delivery Details
       </div>
@@ -60,7 +63,7 @@ export function SelectAddressWidget() {
           <div className="  w-full">
             {!selectedDeliveryAddress && !isAddressLoading && (
               <div className="relative flex flex-col w-full">
-                <div className="flex flex-col overflow-auto w-full mb-10">
+                <div className="flex flex-col overflow-auto w-full mb-5">
                   {addresses.map((address, index) => (
                     <div className=" " key={address.id}>
                       <div>

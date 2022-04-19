@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { SelectAddressWidget } from "../user/address/SelectAddressWidget";
+import { ContactDetailsWidget } from "../user/contactDetails/ContactDetailsWidget";
 
 //flex items-start https://stackoverflow.com/questions/27575779/prevent-a-flex-items-height-from-expanding-to-match-other-flex-items
 export function Index() {
   const total = useSelector((state) => {
     return state.cart.total;
   });
+
+  const [selectedAddressId, setSelectedAddressId] = useState(0);
+  const [mobileNumber, setSelectedMobileNumber] = useState("");
+
   return (
     <div className=" w-full flex flex-row justify-between  w-full items-start  ">
-      <div className=" w-7/12 px-1 mx-10 flex-col ">
-        <SelectAddressWidget />
+      <div className="flex flex-col w-7/12 px-1 mx-10">
+        <div className=" ">
+          <SelectAddressWidget setFormSelectedId={setSelectedAddressId} />
+        </div>
+        <div className=" ">
+          <ContactDetailsWidget setFormContact={setSelectedMobileNumber} />
+        </div>
       </div>
       <div className="w-3/12   p-8 mx-10 grow-0 shadow1  ">
         <div className="flex flex-row justify-between text-3xl font-light my-3">
