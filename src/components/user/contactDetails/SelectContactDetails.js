@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useContactDetailsData } from "../contactDetails/useContactDetailsData";
+import { useContactDetailsData } from "./useContactDetailsData";
 import { ContactDetailsItem } from "./ContactDetailsItem";
-export function ContactDetailsWidget({ setFormContact }) {
+export function SelectContactDetails({ setFormContact }) {
   const [firstLoad, setFirstLoad] = useState(true);
   const [isContactDetailsLoading, contactDetails, fetchData] =
     useContactDetailsData();
@@ -16,10 +16,7 @@ export function ContactDetailsWidget({ setFormContact }) {
   }, [isContactDetailsLoading]);
 
   return (
-    <div className="shadow-lg p-8 flex flex-col my-0">
-      <div className="sticky top-0 whitespace-nowrap font-light text-2xl">
-        Contact Details
-      </div>
+    <div>
       <div
         className={`flex flex-row relative overflow-auto transition-height duration-500 ease-in-out`}
       >
