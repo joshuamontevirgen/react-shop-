@@ -17,6 +17,7 @@ export function AddressItem({ address, onClick, buttonText }) {
       {buttonText && isHover && (
         <button
           className="px-3 py-1 text-white bg-slate-500 hover:bg-slate-700 text-sm font-light"
+          type="button"
           onClick={onClick}
         >
           {buttonText}

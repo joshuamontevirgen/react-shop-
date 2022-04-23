@@ -69,6 +69,7 @@ export function ContactDetails({ contactDetails, onSave }) {
       {!isEdit && isHover && (
         <button
           className="p-2 mx-3  py-1 mt-0 text-white bg-slate-500 hover:bg-slate-700 text-sm font-light"
+          type="button"
           onClick={() => {
             setIsEdit(true);
             setMobileNumber("");
@@ -82,12 +83,14 @@ export function ContactDetails({ contactDetails, onSave }) {
         <div className="flex flex-row p-1">
           <button
             className="p-2 mx-1 py-1 mt-0 text-white bg-slate-500 hover:bg-slate-700 text-sm font-light"
+            type="button"
             onClick={() => setIsEdit(false)}
           >
             Cancel
           </button>
           <button
             className="p-2 py-1 mt-0 mr-3 text-white bg-slate-500 hover:bg-slate-700 text-sm font-light"
+            type="button"
             onClick={handleSave}
           >
             Save

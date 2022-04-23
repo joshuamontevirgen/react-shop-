@@ -3,45 +3,30 @@ import { useSelector } from "react-redux";
 import { SelectAddress } from "../user/address/SelectAddress";
 import { SelectContactDetails } from "../user/contactDetails/SelectContactDetails";
 import { CheckoutPanel } from "./CheckoutPanel";
+import { useForm } from "../app/useForm";
 //flex items-start https://stackoverflow.com/questions/27575779/prevent-a-flex-items-height-from-expanding-to-match-other-flex-items
-
-const formReducer = (state, event) => {
-  return {
-    ...state,
-    [event.name]: event.value,
-  };
-};
 
 export function Index() {
   const total = useSelector((state) => {
     return state.cart.total;
   });
 
-  const [formData, setFormData] = useReducer(formReducer, {});
-  const [submitting, setSubmitting] = useState(false);
-
-  const handleChange = (event) => {
-    event?.target &&
-      setFormData({
-        name: event.target.name,
-        value: event.target.value,
-      });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setSubmitting(true);
+  const onSubmit = (e) => {
+    e.preventDefault();
     console.log(formData);
-    setSubmitting(false);
+    console.log("submit");
   };
+
+  const [formData, submitting, handleSubmit, handleChange] = useForm();
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={(e) => handleSubmit(e, onSubmit)}>
       <div className=" w-full flex flex-row justify-between  w-full items-start  ">
         <div className="flex flex-col w-7/12 px-1 mx-10">
-          <CheckoutPanel title="Delivery Details">
+          <CheckoutPanel title="Delivery Details" isError={!formData.address}>
             <SelectAddress formItemName="address" onChange={handleChange} />
           </CheckoutPanel>
-          <CheckoutPanel title="Contact Details">
+          <CheckoutPanel title="Contact Details" isError={!formData.contact}>
             <SelectContactDetails
               formItemName="contact"
               onChange={handleChange}
