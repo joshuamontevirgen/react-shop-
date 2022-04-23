@@ -4,7 +4,7 @@ import { AddressItem } from "./AddressItem";
 import { AddressForm } from "./AddressForm";
 import { Modal } from "../../modal/Modal";
 
-export function SelectAddress({ setFormSelectedId }) {
+export function SelectAddress({ onChange, formItemName }) {
   const addressEndListRef = useRef(null);
   const [firstLoad, setFirstLoad] = useState(true);
   const [isAddressLoading, addresses, fetchData] = useAddressData();
@@ -13,7 +13,13 @@ export function SelectAddress({ setFormSelectedId }) {
 
   const handleAddressSelect = (address) => {
     setSelectedDeliveryAddress(address);
-    setFormSelectedId && setFormSelectedId(address?.id);
+    onChange &&
+      onChange({
+        target: {
+          name: formItemName,
+          value: address?.id,
+        },
+      });
   };
 
   function scrollToBottom() {
@@ -24,8 +30,13 @@ export function SelectAddress({ setFormSelectedId }) {
   useEffect(() => {
     if (!isAddressLoading && firstLoad) {
       var address = addresses.find((e) => true);
-      setFormSelectedId && setFormSelectedId(address?.id);
       setSelectedDeliveryAddress(address);
+      onChange({
+        target: {
+          name: formItemName,
+          value: address?.id,
+        },
+      });
       setFirstLoad(false);
     }
   }, [isAddressLoading]);
@@ -81,6 +92,8 @@ export function SelectAddress({ setFormSelectedId }) {
           </div>
         </div>
       </div>
+
+      {/*add new address */}
       {!selectedDeliveryAddress && !isAddressLoading && (
         <div
           className="w-full flex justify-center items-center mt-3"

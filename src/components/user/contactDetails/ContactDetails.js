@@ -3,7 +3,7 @@ import { useOnClickOutside } from "../../app/useOnClickOutside";
 import { API_URL } from "../../../constants";
 import { getToken } from "../../authentication/getToken";
 
-export function ContactDetailsItem({ contactDetails, onSaveCallback }) {
+export function ContactDetails({ contactDetails, onSave }) {
   const divRef = useRef();
   const inputRef = useRef();
   const [isHover, setIsHover] = useState(false);
@@ -14,7 +14,7 @@ export function ContactDetailsItem({ contactDetails, onSaveCallback }) {
     const res = await saveContact({ mobileNumber: mobileNumber });
     if (res) {
       setIsEdit(false);
-      onSaveCallback();
+      onSave();
     } else {
     }
   };

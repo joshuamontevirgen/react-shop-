@@ -41,3 +41,7 @@ https://react-redux.js.org/api/hooks#equality-comparisons-and-updates
 
 
   https://dmitripavlutin.com/dont-overuse-react-usecallback/
+
+  https://www.digitalocean.com/community/tutorials/how-to-build-forms-in-react
+
+  === https://stackoverflow.com/questions/34762593/equal-numbers-are-not-equal-javascript
