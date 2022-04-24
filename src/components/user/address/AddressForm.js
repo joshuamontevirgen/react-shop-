@@ -1,17 +1,15 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { API_URL } from "../../../constants";
 import { getToken } from "../../authentication/getToken";
+import { useForm } from "../../utility/useForm";
 
 export function AddressForm({ onSave, onCancel }) {
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [zipCode, setZipCode] = useState("");
+  const [formData, submitting, handleSubmit, handleChange] = useForm();
 
-  const handleAdd = async (e) => {
-    const res = await addAddress({ address, city, zipCode });
+  const onSubmit = async (e) => {
+    const res = await addAddress(formData);
     if (res) {
       onSave();
-      alert("added");
     } else {
     }
   };
@@ -41,7 +39,8 @@ export function AddressForm({ onSave, onCancel }) {
           <input
             className="appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight outline-slate-300 focus:outline-1  "
             type="text"
-            onChange={(e) => setAddress(e.target.value)}
+            name="address"
+            onChange={handleChange}
           ></input>
         </div>
 
@@ -57,7 +56,8 @@ export function AddressForm({ onSave, onCancel }) {
             <input
               className="appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight outline-slate-300 focus:outline-1  "
               type="text"
-              onChange={(e) => setCity(e.target.value)}
+              name="city"
+              onChange={handleChange}
             ></input>
           </div>
 
@@ -72,7 +72,8 @@ export function AddressForm({ onSave, onCancel }) {
             <input
               className="appearance-none block w-full  text-gray-700 border  rounded py-3 px-4 mb-3 leading-tight outline-slate-300 focus:outline-1 "
               type="text"
-              onChange={(e) => setZipCode(e.target.value)}
+              name="zipCode"
+              onChange={handleChange}
             ></input>
           </div>
         </div>
@@ -90,7 +91,7 @@ export function AddressForm({ onSave, onCancel }) {
         <button
           className="px-6 py-2 text-white bg-slate-500 uppercase hover:bg-slate-700 text-sm font-light flex justify-center items-center "
           type="button"
-          onClick={handleAdd}
+          onClick={(e) => handleSubmit(e, onSubmit)}
         >
           Save Changes
         </button>

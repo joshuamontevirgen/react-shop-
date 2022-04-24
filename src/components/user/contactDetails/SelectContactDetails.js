@@ -1,23 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useContactDetailsData } from "./useContactDetailsData";
-import { ContactDetails } from "./ContactDetails";
+import { ContactDetails } from "./ContactDetailsForm";
 
 export function SelectContactDetails({ onChange, formItemName }) {
   const [firstLoad, setFirstLoad] = useState(true);
   const [isContactDetailsLoading, contactDetails, fetchData] =
     useContactDetailsData();
-  const [mobileNumber, setMobileNumber] = useState(null);
 
   useEffect(() => {
     if (!isContactDetailsLoading) {
-      onChange &&
-        onChange({
-          target: {
-            name: formItemName,
-            value: contactDetails.mobileNumber,
-          },
-        });
-      setMobileNumber(contactDetails.mobileNumber);
+      onChange({
+        target: {
+          name: formItemName,
+          value: contactDetails.mobileNumber,
+        },
+      });
       setFirstLoad(false);
     }
   }, [isContactDetailsLoading]);

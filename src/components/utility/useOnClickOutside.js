@@ -5,6 +5,7 @@ import { useEffect } from "react";
 export const useOnClickOutside = (ref, callback) => {
   const handleClick = (e) => {
     if (
+      e.target.id != "loaderOverlay" &&
       ref.current &&
       !ref.current.contains(e.target) //if ref does not have clicked child
     ) {

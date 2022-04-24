@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useAddressData } from "./useAddressData";
 import { AddressItem } from "./AddressItem";
 import { AddressForm } from "./AddressForm";
-import { Modal } from "../../modal/Modal";
+import { Modal } from "../../utility/modal/Modal";
 
 export function SelectAddress({ onChange, formItemName }) {
   const addressEndListRef = useRef(null);

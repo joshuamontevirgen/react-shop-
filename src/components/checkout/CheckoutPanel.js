@@ -9,6 +9,7 @@ export function CheckoutPanel({ title, children, isError }) {
       <div className="sticky top-0 whitespace-nowrap font-light text-2xl">
         {title}
       </div>
+
       <div>{children}</div>
     </div>
   );

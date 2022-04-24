@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { SelectAddress } from "../user/address/SelectAddress";
 import { SelectContactDetails } from "../user/contactDetails/SelectContactDetails";
 import { CheckoutPanel } from "./CheckoutPanel";
-import { useForm } from "../app/useForm";
+import { useForm } from "../utility/useForm";
 //flex items-start https://stackoverflow.com/questions/27575779/prevent-a-flex-items-height-from-expanding-to-match-other-flex-items
 
 export function Index() {
@@ -11,16 +11,16 @@ export function Index() {
     return state.cart.total;
   });
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
     console.log("submit");
+    console.log(formData);
   };
 
   const [formData, submitting, handleSubmit, handleChange] = useForm();
 
   return (
-    <form onSubmit={(e) => handleSubmit(e, onSubmit)}>
+    <>
       <div className=" w-full flex flex-row justify-between  w-full items-start  ">
         <div className="flex flex-col w-7/12 px-1 mx-10">
           <CheckoutPanel title="Delivery Details" isError={!formData.address}>
@@ -41,13 +41,16 @@ export function Index() {
               <span>{total}</span>
             </div>
             <div className="w-full flex justify-center content-center my-3">
-              <button className="p-3 text-white w-full bg-slate-500 hover:bg-slate-700 btn justify-center content-center font-light text-3xl ">
+              <button
+                className="p-3 text-white w-full bg-slate-500 hover:bg-slate-700 btn justify-center content-center font-light text-3xl "
+                onClick={(e) => handleSubmit(e, onSubmit)}
+              >
                 Checkout
               </button>
             </div>
           </CheckoutPanel>
         </div>
       </div>
-    </form>
+    </>
   );
 }

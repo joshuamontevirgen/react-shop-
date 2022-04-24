@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { CartContent } from "./CartContent";
 import { toggleSide } from "./cartSlice";
 import { Link } from "react-router-dom";
-import { useOnClickOutside } from "../app/useOnClickOutside";
+import { useOnClickOutside } from "../utility/useOnClickOutside";
 
 import "./styles.css";
 
@@ -32,7 +32,7 @@ export function SideCart() {
       <div>
         <div
           className={` fixed inset-0 h-vh bg-black ${
-            showSideCart ? " fadeIn " : "fadeOut "
+            showSideCart ? " fadeIn opacity-30" : " fadeOut opacity-0"
           }`}
           style={{ zIndex: 999 }}
         ></div>

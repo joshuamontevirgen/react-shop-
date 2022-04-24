@@ -1,19 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useOnClickOutside } from "../../app/useOnClickOutside";
+import { useOnClickOutside } from "../../utility/useOnClickOutside";
 import { API_URL } from "../../../constants";
 import { getToken } from "../../authentication/getToken";
+import { useForm } from "../../utility/useForm";
 
 export function ContactDetails({ contactDetails, onSave }) {
   const divRef = useRef();
   const inputRef = useRef();
   const [isHover, setIsHover] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [mobileNumber, setMobileNumber] = useState("");
+  const [formData, submitting, handleSubmit, handleChange] = useForm();
 
-  const handleSave = async (e) => {
-    const res = await saveContact({ mobileNumber: mobileNumber });
+  const onSubmit = async (e) => {
+    const res = await saveContact(formData);
     if (res) {
       setIsEdit(false);
+
       onSave();
     } else {
     }
@@ -59,9 +61,9 @@ export function ContactDetails({ contactDetails, onSave }) {
           <input
             ref={inputRef}
             className=" text-2xl font-normal p-4 appearance-none border-0 rounded w-full p-0 m-0 text-gray-700 leading-tight outline-none outline-0"
-            value={mobileNumber}
             placeholder="09XXXXXXXXX"
-            onChange={(e) => setMobileNumber(e.target.value)}
+            name="mobileNumber"
+            onChange={handleChange}
           ></input>
         )}
       </div>
@@ -72,7 +74,6 @@ export function ContactDetails({ contactDetails, onSave }) {
           type="button"
           onClick={() => {
             setIsEdit(true);
-            setMobileNumber("");
           }}
         >
           Change
@@ -91,7 +92,7 @@ export function ContactDetails({ contactDetails, onSave }) {
           <button
             className="p-2 py-1 mt-0 mr-3 text-white bg-slate-500 hover:bg-slate-700 text-sm font-light"
             type="button"
-            onClick={handleSave}
+            onClick={(e) => handleSubmit(e, onSubmit)}
           >
             Save
           </button>

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useOnClickOutside } from "../app/useOnClickOutside";
+import { useOnClickOutside } from "../useOnClickOutside";
 
 export function Modal({ showModal, setShowModal, title, children }) {
   const modalRef = useRef();
@@ -10,7 +10,7 @@ export function Modal({ showModal, setShowModal, title, children }) {
       <div
         style={{ zIndex: 999 }}
         className={` fixed inset-0 h-vh bg-black ${
-          showModal ? " fadeIn " : "fadeOut "
+          showModal ? " fadeIn opacity-30" : " fadeOut opacity-0"
         }`}
       />
       {showModal ? (
