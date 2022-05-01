@@ -22,13 +22,13 @@ export function useCategoryFilter() {
   function filterList(items, categoryFilter) {
     if (categoryFilter.subcategory && parentCategoryList.length > 0) {
       var parent = parentCategoryList.find(
-        (c) => c.value === categoryFilter.category
+        (c) => c.value == categoryFilter.category
       );
       setSelectedParentCategory(parent);
       setSelectedCategory(categoryFilter.subcategory);
       setFilteredList(
         items.filter((item) => {
-          return item.category === categoryFilter.subcategory;
+          return item.category == categoryFilter.subcategory;
         })
       );
     } else if (categoryFilter.category && parentCategoryList.length > 0) {

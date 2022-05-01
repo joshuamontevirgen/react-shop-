@@ -4,6 +4,9 @@ import { SelectAddress } from "../user/address/SelectAddress";
 import { SelectContactDetails } from "../user/contactDetails/SelectContactDetails";
 import { CheckoutPanel } from "./CheckoutPanel";
 import { useForm } from "../utility/useForm";
+import { API_URL } from "../../constants";
+import { getToken } from "../authentication/getToken";
+import { useNavigate } from "react-router-dom";
 //flex items-start https://stackoverflow.com/questions/27575779/prevent-a-flex-items-height-from-expanding-to-match-other-flex-items
 
 export function Index() {
@@ -11,10 +14,38 @@ export function Index() {
     return state.cart.total;
   });
 
+  const items = useSelector((state) => {
+    return state.cart.items;
+  });
+  const navigate = useNavigate();
+
+  async function placeOrder(order) {
+    return await fetch(API_URL + "/api/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getToken(),
+      },
+      body: JSON.stringify(order),
+    }).then((data) => data.json());
+  }
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("submit");
-    console.log(formData);
+
+    var data = {
+      order: {
+        ...formData,
+      },
+      orderItems: items.map((item) => {
+        return {
+          itemId: item.id,
+          quantity: item.quantity,
+        };
+      }),
+    };
+    var result = await placeOrder(data);
+    navigate("/checkoutResult", { state: result }); //https://stackoverflow.com/questions/68911432/how-to-pass-parameters-with-react-router-dom-version-6-usenavigate-and-typescrip
   };
 
   const [formData, submitting, handleSubmit, handleChange] = useForm();
@@ -23,8 +54,14 @@ export function Index() {
     <>
       <div className=" w-full flex flex-row justify-between  w-full items-start  ">
         <div className="flex flex-col w-7/12 px-1 mx-10">
-          <CheckoutPanel title="Delivery Details" isError={!formData.address}>
-            <SelectAddress formItemName="address" onChange={handleChange} />
+          <CheckoutPanel
+            title="Delivery Details"
+            isError={!formData.userAddressId}
+          >
+            <SelectAddress
+              formItemName="userAddressId"
+              onChange={handleChange}
+            />
           </CheckoutPanel>
           <CheckoutPanel title="Contact Details" isError={!formData.contact}>
             <SelectContactDetails
