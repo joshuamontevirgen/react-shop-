@@ -19,21 +19,21 @@ export const Order = () => {
     <>
       {!isOrderLoading && (
         <div className="flex flex-col w-full justify-center items-center">
-          <span>Order # {order.Id}</span>
+          <span>Order # {order.id}</span>
           <span>Status: {order.sOrderStatus}</span>
           <span>Payment Status: {order.sPaymentStatus}</span>
-          <span>Address: {order.address.address}</span>
+          <span>Address: {order.address?.address}</span>
         </div>
       )}
       {!isOrderitemsLoading && (
         <div className="flex flex-col w-full justify-center items-center">
-          {orderItems.map((item) => {
+          {orderItems.map((orderitem) => {
             return (
-              <div className="flex flex-col border w-full justify-center items-center">
-                <span>{item.id}</span>
-                <span>{item.price}</span>
-                <span>{item.quantity}</span>
-                <span>P{item.quantity * item.price}</span>
+              <div className="flex flex-col border w-full justify-start  items-center">
+                <span>name: {orderitem.item.name}</span>
+                <span>price: {orderitem.price}</span>
+                <span>quantity: {orderitem.quantity}</span>
+                <span>subtotal: P{orderitem.quantity * orderitem.price}</span>
               </div>
             );
           })}

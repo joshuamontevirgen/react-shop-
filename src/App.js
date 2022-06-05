@@ -10,9 +10,11 @@ export default function App() {
       <LoaderOverlay />
       <SideCart />
 
-      <div id="App">
-        <Navbar />
-        <div id="main-container" className="">
+      <div id="App" className="flex flex-col h-screen ">
+        <div className="w-full">
+          <Navbar />
+        </div>
+        <div id="app-body" className="flex-1 overflow-y-auto">
           <AppRoutes />
         </div>
       </div>

@@ -7,8 +7,9 @@ import { Index as Catalog } from "./components/catalog/index";
 import { Index as Checkout } from "./components/checkout/Index";
 import { CheckoutResult } from "./components/checkout/CheckoutResult";
 import { Order } from "./components/user/orders/Order";
+import { Orders } from "./components/user/orders/Orders";
 import { useAuth } from "./components/authentication/useAuth";
-
+import Account from "./components/user/account/index";
 export function AppRoutes() {
   const [isAuthLoading, isAuthenticated] = useAuth();
   const PrivateRoute = () => {
@@ -22,8 +23,12 @@ export function AppRoutes() {
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/register" element={<Registration />} />
 
-      <Route exact path="/order/:id" element={<PrivateRoute />}>
-        <Route exact path="/order/:id" element={<Order />} />
+      <Route exact path="/orders" element={<PrivateRoute />}>
+        <Route exact path="/orders" element={<Orders />} />
+      </Route>
+
+      <Route exact path="/orders/:id" element={<PrivateRoute />}>
+        <Route exact path="/orders/:id" element={<Order />} />
       </Route>
 
       <Route exact path="/checkout" element={<PrivateRoute />}>
@@ -34,6 +39,9 @@ export function AppRoutes() {
       </Route>
       <Route exact path="/profile" element={<PrivateRoute />}>
         <Route exact path="/profile" element={<Profile />} />
+      </Route>
+      <Route exact path="/account" element={<PrivateRoute />}>
+        <Route exact path="/account" element={<Account />} />
       </Route>
       <Route exact path="/catalog/" element={<Catalog />}>
         <Route exact path=":category/:subcategory" element={<Catalog />} />

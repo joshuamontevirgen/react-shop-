@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className="sticky w-full top-0 bg-white px-2 px-4 py-2.5 rounded border-b "
+        className="bg-white px-2 px-4 py-2.5 rounded border-b "
         style={{ zIndex: 1 }}
       >
         <div className="container flex flex-nowrap justify-between items-center mx-auto">
@@ -29,9 +29,9 @@ const Navbar = () => {
                 <li className="">
                   <Link
                     className="block py-1 px-3 hover:font-normal"
-                    to="/profile"
+                    to="/account"
                   >
-                    Profile
+                    My Account
                   </Link>
                 </li>
               )}

@@ -9,7 +9,7 @@ export const CheckoutResult = () => {
       <div className="flex flex-col w-full justify-center items-center">
         <span> Order # {result.data.id}</span>
         <span>{result.message}</span>
-        <Link to={`/order/${result.data.id}`}>View details</Link>
+        <Link to={`/orders/${result.data.id}`}>View details</Link>
       </div>
     </>
   );
