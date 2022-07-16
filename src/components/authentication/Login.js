@@ -9,6 +9,7 @@ import {
   setUsername,
   setJwtToken,
 } from "./authenticationSlice";
+import { useForm } from "../utility/useForm";
 
 //todo -  refresh, access token
 //https://stackoverflow.com/questions/27067251/where-to-store-jwt-in-browser-how-to-protect-against-csrf?rq=1
@@ -16,22 +17,18 @@ import {
 
 export default function Login() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-
-  function validateForm() {
-    return email.length > 0 && password.length > 0;
-  }
+  const [formData, submitting, handleSubmit, handleChange] = useForm();
+  const [isValid, setValid] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const user = await loginUser({ Email: email, Password: password });
+    const user = await loginUser(formData);
     if (user.token) {
       dispatch(setAuthenticated(true));
-      dispatch(setUsername(email));
+      dispatch(setUsername(formData.email));
       dispatch(setJwtToken(user.token));
-      localStorage.setItem("email", email);
+      localStorage.setItem("email", formData.email);
       document.cookie = setCookie(COOKIE_JWT_TOKEN_NAME, user.token, 5);
       navigate("/home");
     } else {
@@ -54,7 +51,10 @@ export default function Login() {
       <div className="w-full max-w-xs ">
         <form
           className="bg-white shadow1 rounded px-8 pt-6 pb-8 mt-20"
-          onSubmit={handleLogin}
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit(e, handleLogin);
+          }}
         >
           <div className="mb-4">
             <label className="block text-gray-700 mb-2" htmlFor="email">
@@ -62,9 +62,9 @@ export default function Login() {
             </label>
             <input
               className=" font-light shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleChange}
               type="email"
+              name="email"
               placeholder="Email"
               required
             />
@@ -78,9 +78,10 @@ export default function Login() {
               className=" font-light shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               id="password"
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChange}
               placeholder="******************"
+              name="password"
+              required
             />
           </div>
 

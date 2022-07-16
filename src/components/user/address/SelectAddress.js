@@ -1,16 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useAddressData } from "./useAddressData";
 import { AddressItem } from "./AddressItem";
-import { AddressFormModal } from "./AddressFormModal";
+import { AddressForm } from "./AddressForm";
+import { Modal } from "../../utility/modal/Modal";
 
-export function SelectAddressWidget() {
+export function SelectAddress({ onChange, formItemName }) {
   const addressEndListRef = useRef(null);
   const [firstLoad, setFirstLoad] = useState(true);
   const [isAddressLoading, addresses, fetchData] = useAddressData();
   const [selectedDeliveryAddress, setSelectedDeliveryAddress] = useState(null);
+  const [showAddressModal, setShowAddressModal] = useState(false);
 
   const handleAddressSelect = (address) => {
     setSelectedDeliveryAddress(address);
+    onChange &&
+      onChange({
+        target: {
+          name: formItemName,
+          value: address?.id,
+        },
+      });
   };
 
   function scrollToBottom() {
@@ -20,7 +29,14 @@ export function SelectAddressWidget() {
 
   useEffect(() => {
     if (!isAddressLoading && firstLoad) {
-      setSelectedDeliveryAddress(addresses.find((e) => true));
+      var address = addresses.find((e) => true);
+      setSelectedDeliveryAddress(address);
+      onChange({
+        target: {
+          name: formItemName,
+          value: address?.id,
+        },
+      });
       setFirstLoad(false);
     }
   }, [isAddressLoading]);
@@ -30,10 +46,7 @@ export function SelectAddressWidget() {
   }, [!isAddressLoading, addresses, addressEndListRef]);
 
   return (
-    <div className="shadow1 p-8 flex flex-col">
-      <div className="sticky top-0 whitespace-nowrap font-light text-2xl">
-        Delivery Details
-      </div>
+    <div>
       <div
         className={`flex flex-row relative  overflow-auto transition-height duration-500 ease-in-out ${
           !selectedDeliveryAddress
@@ -49,7 +62,7 @@ export function SelectAddressWidget() {
               <div className="">
                 <div className="flex flex-col">
                   <AddressItem
-                    handleClick={() => handleAddressSelect(null)}
+                    onClick={() => handleAddressSelect(null)}
                     buttonText="Change Address"
                     address={selectedDeliveryAddress}
                   />
@@ -60,13 +73,13 @@ export function SelectAddressWidget() {
           <div className="  w-full">
             {!selectedDeliveryAddress && !isAddressLoading && (
               <div className="relative flex flex-col w-full">
-                <div className="flex flex-col overflow-auto w-full mb-10">
+                <div className="flex flex-col overflow-auto w-full mb-5">
                   {addresses.map((address, index) => (
                     <div className=" " key={address.id}>
                       <div>
                         <AddressItem
                           address={address}
-                          handleClick={() => handleAddressSelect(address)}
+                          onClick={() => handleAddressSelect(address)}
                           buttonText="Select"
                         />
                       </div>
@@ -79,12 +92,33 @@ export function SelectAddressWidget() {
           </div>
         </div>
       </div>
+
+      {/*add new address */}
       {!selectedDeliveryAddress && !isAddressLoading && (
         <div
           className="w-full flex justify-center items-center mt-3"
           style={{ zIndex: 100 }}
         >
-          <AddressFormModal onSaveAddressCallback={fetchData} />
+          <button
+            className="px-3 py-1 text-white bg-slate-500 hover:bg-slate-700 text-sm font-light flex justify-center items-center w-full"
+            type="button"
+            onClick={() => setShowAddressModal(true)}
+          >
+            Add new address
+          </button>
+          <Modal
+            showModal={showAddressModal}
+            setShowModal={setShowAddressModal}
+            title="New Address"
+          >
+            <AddressForm
+              onCancel={() => setShowAddressModal(false)}
+              onSave={() => {
+                setShowAddressModal(false);
+                fetchData();
+              }}
+            />
+          </Modal>
         </div>
       )}
     </div>

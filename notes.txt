@@ -38,3 +38,10 @@ https://react-redux.js.org/api/hooks#equality-comparisons-and-updates
   https://stackoverflow.com/questions/27928372/react-router-urls-dont-work-when-refreshing-or-writing-manually
   https://antbutcher.medium.com/hosting-a-react-js-app-on-azure-blob-storage-azure-cdn-for-ssl-and-routing-8fdf4a48feeb
   https://stackoverflow.com/questions/69348162/urls-dont-work-on-refresh-withing-react-app-hosted-on-azure
+
+
+  https://dmitripavlutin.com/dont-overuse-react-usecallback/
+
+  https://www.digitalocean.com/community/tutorials/how-to-build-forms-in-react
+
+  === https://stackoverflow.com/questions/34762593/equal-numbers-are-not-equal-javascript

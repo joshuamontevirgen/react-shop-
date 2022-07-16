@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export function AddressItem({ address, handleClick, buttonText }) {
+export function AddressItem({ address, onClick, buttonText }) {
   const [isHover, setIsHover] = useState(false);
   return (
     <div
@@ -17,7 +17,8 @@ export function AddressItem({ address, handleClick, buttonText }) {
       {buttonText && isHover && (
         <button
           className="px-3 py-1 text-white bg-slate-500 hover:bg-slate-700 text-sm font-light"
-          onClick={handleClick}
+          type="button"
+          onClick={onClick}
         >
           {buttonText}
         </button>

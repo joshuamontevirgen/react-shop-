@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, forwardRef } from "react";
 import { useDispatch } from "react-redux";
 import { addCartItem, subCartItem } from "./cartSlice";
 import * as Icon from "react-bootstrap-icons"; //https://icons.getbootstrap.com/  https://github.com/ismamz/react-bootstrap-icons#readme
-import { useOnClickOutside } from "../app/useOnClickOutside";
+import { useOnClickOutside } from "../utility/useOnClickOutside";
 import "./styles.css";
 
 export function CartItem({ item, enableControls, index }) {

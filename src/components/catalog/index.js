@@ -83,59 +83,66 @@ export const Index = () => {
   //#endregion getitems
 
   return (
-    <>
+    <div className="h-full">
       <div className="fixed w-48 pl-5 pt-5 " style={{ zIndex: 1000 }}>
         <div className="">{getFilterPanelDiv()}</div>
       </div>
-      <div className=" content ">
+      <div
+        id="content-container"
+        className="content overflow-y-auto"
+        style={{}}
+      >
         {isLoading ? (
           <div>Loading...</div>
         ) : (
-          <div className="w-full flex flex-col">
-            <div>{getCategoriesHeaderDiv()}</div>
-            <InfiniteScroll
-              dataLength={currentPage.length}
-              next={nextData}
-              hasMore={hasMore}
-              loader={
-                <div>
-                  <svg
-                    className="animate-spin h-5 w-5 mr-3 "
-                    viewBox="0 0 24 24"
-                  ></svg>
-                  Loading...
-                </div>
-              }
-              endMessage={
-                <p style={{ textAlign: "center" }}>
-                  <>End of list</>
-                </p>
-              }
-            >
-              <TransitionGroup
-                component="ul"
-                className="flex flex-wrap flex-row"
-                style={{ listStyleType: "none" }}
+          <div className="w-full flex flex-col ">
+            <div className="">{getCategoriesHeaderDiv()}</div>
+            <div className="">
+              <InfiniteScroll
+                scrollableTarget="app-body"
+                dataLength={currentPage.length}
+                next={nextData}
+                hasMore={hasMore}
+                loader={
+                  <div>
+                    <svg
+                      className="animate-spin h-5 w-5 mr-3 "
+                      viewBox="0 0 24 24"
+                    ></svg>
+                    Loading...
+                  </div>
+                }
+                endMessage={
+                  <p style={{ textAlign: "center" }}>
+                    <>End of list</>
+                  </p>
+                }
               >
-                {currentPage.map((item, index) => {
-                  return (
-                    <CSSTransition
-                      // nodeRef={nodeRef}
-                      key={item.id}
-                      timeout={250}
-                      classNames="item"
-                    >
-                      <li className={"m-1 p-1 w-44 "}>
-                        <CatalogItem item={item} />
-                      </li>
-                    </CSSTransition>
-                  );
-                })}
-              </TransitionGroup>
-            </InfiniteScroll>
+                <TransitionGroup
+                  component="ul"
+                  className="flex flex-wrap flex-row "
+                  style={{ listStyleType: "none" }}
+                >
+                  {currentPage.map((item, index) => {
+                    return (
+                      <CSSTransition
+                        // nodeRef={nodeRef}
+                        key={item.id}
+                        timeout={250}
+                        classNames="item"
+                      >
+                        <li className={"m-1 p-1 w-44 "}>
+                          <CatalogItem item={item} />
+                        </li>
+                      </CSSTransition>
+                    );
+                  })}
+                </TransitionGroup>
+              </InfiniteScroll>
+            </div>
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };

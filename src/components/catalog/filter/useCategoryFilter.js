@@ -22,13 +22,13 @@ export function useCategoryFilter() {
   function filterList(items, categoryFilter) {
     if (categoryFilter.subcategory && parentCategoryList.length > 0) {
       var parent = parentCategoryList.find(
-        (c) => c.value === categoryFilter.category
+        (c) => c.value == categoryFilter.category
       );
       setSelectedParentCategory(parent);
       setSelectedCategory(categoryFilter.subcategory);
       setFilteredList(
         items.filter((item) => {
-          return item.category === categoryFilter.subcategory;
+          return item.category == categoryFilter.subcategory;
         })
       );
     } else if (categoryFilter.category && parentCategoryList.length > 0) {
@@ -67,8 +67,8 @@ export function useCategoryFilter() {
     return (
       !isLoading &&
       selectedCategory && (
-        <div className="relative mt-5 mb-20 w-full flex justify-center items-center select-none">
-          <div className="flex flex-col w-full fixed justify-center items-center bg-white">
+        <div className="">
+          <div className=" flex flex-col w-full justify-center items-center bg-white">
             <strong className="font-light text-7xl my-5">
               {selectedParentCategory.label}
             </strong>
